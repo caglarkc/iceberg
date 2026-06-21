@@ -107,4 +107,63 @@ describe("Meeting flow integration", () => {
     const safe = meetingService.getMeeting(meeting.id)!;
     expect(safe).not.toHaveProperty("start_url_encrypted");
   });
+
+  it("T10: cancel meeting writes timeline event", async () => {
+    const meeting = await meetingService.createMeetingForContact("cnt_james", {
+      startTime: "2026-08-05T10:00:00Z"
+    });
+    const cancelled = await meetingService.cancelMeeting(meeting.id);
+    expect(cancelled.status).toBe("cancelled");
+    const events = timelineService.listByContact("cnt_james");
+    expect(events.some((e) => e.event_type === "meeting.cancelled")).toBe(true);
+  });
+
+  it("recording.completed webhook sets recording_ready timeline", async () => {
+    const meeting = await meetingService.createMeetingForContact("cnt_sarah", {
+      startTime: "2026-08-10T10:00:00Z"
+    });
+
+    await meetingService.handleWebhookEvent({
+      event: "recording.completed",
+      zoom_meeting_id: meeting.zoom_meeting_id,
+      payload: { recording_files: [{ type: "MP4", status: "completed" }] }
+    });
+
+    const updated = meetingService.getMeeting(meeting.id)!;
+    expect(updated.recording_status).toBe("available");
+    const events = timelineService.listByContact("cnt_sarah");
+    expect(events.some((e) => e.event_type === "meeting.recording_ready")).toBe(true);
+  });
+
+  it("follow-up task creates draft and timeline event", async () => {
+    const meeting = await meetingService.createMeetingForContact("cnt_emma", {
+      startTime: "2026-09-01T10:00:00Z"
+    });
+
+    const task = meetingService.createFollowUp(meeting.id, {
+      title: "Send valuation summary to Sarah",
+      dueDate: "2026-09-02"
+    });
+
+    expect(task).toMatchObject({ title: "Send valuation summary to Sarah", status: "draft" });
+    const events = timelineService.listByContact("cnt_emma");
+    expect(events.some((e) => e.event_type === "follow_up.created")).toBe(true);
+  });
+
+  it("rejects past schedule time", async () => {
+    await expect(
+      meetingService.createMeetingForContact("cnt_sarah", {
+        startTime: "2020-01-01T10:00:00Z"
+      })
+    ).rejects.toMatchObject({ code: "INVALID_SCHEDULE_TIME", status: 400 });
+  });
+
+  it("getEmbedSignature returns mock SDK payload", async () => {
+    const meeting = await meetingService.createMeetingForContact("cnt_sarah", {
+      startTime: "2026-09-15T10:00:00Z"
+    });
+    const sig = await meetingService.getEmbedSignature(meeting.id, 1);
+    expect(sig.signature).toBeTruthy();
+    expect(sig.meeting_number).toBe(meeting.zoom_meeting_id);
+  });
 });

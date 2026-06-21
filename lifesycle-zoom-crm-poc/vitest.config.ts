@@ -18,7 +18,7 @@ export default defineConfig({
         "packages/zoom-client/src/**/*.ts",
         "tools/zoom-service-mock/src/**/*.ts"
       ],
-      exclude: ["**/*.test.ts", "**/index.ts"]
+      exclude: ["**/*.test.ts", "**/index.ts", "**/seed-cli.ts"]
     }
   }
 });

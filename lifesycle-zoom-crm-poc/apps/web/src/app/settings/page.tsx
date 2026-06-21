@@ -5,7 +5,7 @@ export default function SettingsPage() {
     zoomMode: process.env.ZOOM_MODE ?? "mock",
     zoomServiceUrl: process.env.ZOOM_SERVICE_URL ?? "(in-process mock adapter)",
     featureEmbed: process.env.FEATURE_EMBED_SDK ?? "true",
-    featureFollowUp: process.env.FEATURE_FOLLOW_UP_TASKS ?? "false"
+    featureFollowUp: process.env.FEATURE_FOLLOW_UP_TASKS ?? "true"
   };
 
   return (

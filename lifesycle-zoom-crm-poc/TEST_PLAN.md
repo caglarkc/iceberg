@@ -3,7 +3,7 @@
 ## Automated (CI)
 
 ```bash
-ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test
+ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test -- --coverage
 ```
 
 | ID | Scenario | Suite |
@@ -13,7 +13,12 @@ ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test
 | T06 | Webhook meeting.ended | integration |
 | T07 | Duplicate active meeting 409 | integration |
 | T09 | start_url not in API response | integration |
-| — | Zoom service contract | contract |
+| T10 | Cancel meeting | integration |
+| — | recording.completed webhook | integration |
+| — | Follow-up task draft | integration |
+| — | HttpZoomClient HTTP contract | contract |
+| — | Zoom service mock contract | contract |
+| — | ContactService | integration |
 | — | Topic generator / encryption | unit |
 
 ## Manual Checklist

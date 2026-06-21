@@ -38,7 +38,7 @@ npm run dev
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | CRM + mock Zoom service |
-| `npm run test` | Unit + contract + integration |
+| `npm run test -- --coverage` | Unit + contract + integration (CI gate) |
 | `npm run lint` | ESLint |
 | `npm run seed` | Load demo contacts/properties |
 
@@ -51,5 +51,6 @@ See `.env.example`. Key vars: `ZOOM_MODE=mock`, `ZOOM_SERVICE_URL`, `ENCRYPTION_
 - `contracts/zoom-integration-service.openapi.yaml` — consumer API contract
 - `docs/ZOOM_CRM_RESEARCH.md` — integration research
 - `docs/RECOMMENDATION.md` — MVP recommendation
-- `HANDOVER.md` — handover index
+- `docs/DEMO_DAY_REFLECTION.md` — demo retrospective
+- `HANDOVER.md` — handover index (includes M2↔M3 path mapping)
 - `TEST_PLAN.md` — manual test scenarios

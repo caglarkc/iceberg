@@ -1,0 +1,38 @@
+name: lifesycle-zoom-crm-poc-ci
+
+on:
+  pull_request:
+    paths:
+      - "lifesycle-zoom-crm-poc/**"
+      - ".github/workflows/lifesycle-zoom-crm-poc-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "lifesycle-zoom-crm-poc/**"
+      - ".github/workflows/lifesycle-zoom-crm-poc-ci.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      ZOOM_MODE: mock
+      ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: lifesycle-zoom-crm-poc/package-lock.json
+      - name: Install
+        working-directory: lifesycle-zoom-crm-poc
+        run: npm ci
+      - name: Lint
+        working-directory: lifesycle-zoom-crm-poc
+        run: npm run lint
+      - name: Typecheck
+        working-directory: lifesycle-zoom-crm-poc
+        run: npm run typecheck
+      - name: Test
+        working-directory: lifesycle-zoom-crm-poc
+        run: npm run test -- --coverage

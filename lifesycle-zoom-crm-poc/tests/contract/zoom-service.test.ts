@@ -90,4 +90,13 @@ describe("Zoom Integration Service mock contract", () => {
       .set("Authorization", "Bearer wrong");
     expect(res.status).toBe(401);
   });
+
+  it("POST /webhooks/replay echoes payload", async () => {
+    const res = await request(baseUrl())
+      .post("/api/v1/webhooks/replay")
+      .set("Authorization", `Bearer ${apiKey}`)
+      .send({ event: "meeting.ended", zoom_meeting_id: "123" });
+    expect(res.status).toBe(200);
+    expect(res.body.ok).toBe(true);
+  });
 });

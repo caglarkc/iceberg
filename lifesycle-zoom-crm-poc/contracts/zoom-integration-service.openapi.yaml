@@ -64,6 +64,20 @@ paths:
       responses:
         "200":
           description: SDK signature payload
+  /webhooks/replay:
+    post:
+      summary: Replay normalized webhook for demo (mock only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Echo acknowledged
 components:
   securitySchemes:
     bearerAuth:

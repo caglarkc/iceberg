@@ -289,6 +289,26 @@ export class MeetingService {
       });
     }
 
+    if (event.event === "recording.completed") {
+      this.db
+        .prepare(
+          `UPDATE meetings SET recording_status = 'available', transcript_status = 'available',
+           updated_at = datetime('now') WHERE id = ?`
+        )
+        .run(meeting.id);
+
+      this.timeline.createEvent({
+        contactId: meeting.contact_id!,
+        propertyId: meeting.property_id ?? undefined,
+        appointmentId: meeting.appointment_id ?? undefined,
+        meetingId: meeting.id,
+        eventType: "meeting.recording_ready",
+        title: "Recording available",
+        actorType: "webhook",
+        metadata: { zoom_meeting_id: event.zoom_meeting_id }
+      });
+    }
+
     return this.getMeeting(meeting.id)!;
   }
 
