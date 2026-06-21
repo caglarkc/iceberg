@@ -5,21 +5,34 @@
 
 ## Status legend
 
-- **Possible Now** — achievable with current scopes/licenses in Faz 1
+- **Possible Now** — achievable with current scopes/licenses (may still be mock/simulated in Ay 1)
 - **Needs License** — extra Zoom license or account setting
 - **Not Possible** — no API/SDK path; document alternative
 - **Escalate** — confirm with Zoom Partner Support
 
+## Implementation legend (Ay 1 honesty)
+
+Each item includes an `implementation` field:
+
+| Value | Meaning |
+|-------|---------|
+| `real` | Working code path in Ay 1 POC (may still use mock Zoom backend) |
+| `mock` | Mock adapter / fixture only — not live Zoom |
+| `simulated` | UI or flow simulated (e.g. embed panel placeholder) |
+| `none` | Not implemented; blocked by license or feasibility |
+
+Filter by status: `?status=not_possible` (unchanged). Consumers can inspect `implementation` per item.
+
 ## Highlights for Demo Day
 
-| Feature | Status | Ay 1 note |
-|---------|--------|-----------|
-| REST meeting create | Possible Now | Mock adapter ✅ |
-| Meeting SDK embed | Possible Now | Simulated UI; WASM Faz 2 |
-| Server-side outbound Phone call | **Not Possible** | **Demo talking point** |
-| Webhook lifecycle events | Possible Now | Mock replay ✅ |
-| Cloud transcript | Possible Now | Mock transcript ✅ |
-| Smart Embed Phone | Needs License | Feasibility tab only |
+| Feature | Status | Implementation | Ay 1 note |
+|---------|--------|----------------|-----------|
+| REST meeting create | Possible Now | mock | Mock adapter ✅ |
+| Meeting SDK embed | Possible Now | simulated | Simulated UI; WASM Faz 2 |
+| Server-side outbound Phone call | **Not Possible** | none | **Demo talking point** |
+| Webhook lifecycle events | Possible Now | mock | Mock replay ✅ |
+| Cloud transcript | Possible Now | mock | Mock transcript ✅ |
+| Smart Embed Phone | Needs License | none | Feasibility tab only |
 
 Full list (27 items) served by API — filter with `?status=not_possible`.
 

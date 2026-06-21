@@ -45,12 +45,21 @@ Hafta 3–4 özellikleri (phone mock events, CRM adapter, webhook replay, OpenAP
 
 ## M3 integration
 
-M3 consumes this service as a black box. Contract: `docs/openapi.yaml` (v0.1.1 — full path list)  
-Base URL (local): `http://localhost:4010`
+M3 (`lifesycle-zoom-crm-poc`) uses a **different consumer contract** (`/api/v1/meetings`,
+`/meetings/{id}/embed-signature`, etc.) than M2's native routes (`/api/zoom/*`).
 
-Key endpoints for M3:
-- `POST /api/zoom/meetings`
-- `POST /api/zoom/signature`
+**Official path mapping:** [`docs/M3_BRIDGE_MAPPING.md`](docs/M3_BRIDGE_MAPPING.md)  
+**Adapter overlay:** [`docs/bridge-contract.yaml`](docs/bridge-contract.yaml)  
+**M2 native OpenAPI:** [`docs/openapi.yaml`](docs/openapi.yaml) (v0.1.1)
+
+| Service | Local URL |
+|---------|-----------|
+| M2 API | `http://localhost:4010` |
+| M2 demo web | `http://localhost:5174` |
+
+M2 native endpoints most relevant after bridge translation:
+- `POST /api/zoom/meetings` ← M3 `POST /api/v1/meetings`
+- `POST /api/zoom/signature` ← M3 `POST /api/v1/meetings/{id}/embed-signature`
 - `GET /api/zoom/events`
 - `GET /api/zoom/meetings/{uuid}/recordings`
 - `GET /api/zoom/meetings/{uuid}/transcript`

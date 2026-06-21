@@ -14,11 +14,13 @@ ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test -- --coverage
 
 ## Manual — Demo Day (5–7 min)
 
+Open demo web at **http://localhost:5174** (API on **http://localhost:4010**).
+
 1. **Dashboard** (`/`) — OAuth ok, mode=mock, capability summary
 2. **Meeting** (`/meeting`) — Create "Valuation Demo Call" → join URL + simulated embed + signature
 3. **Events** (`/events`) — Replay `meeting.ended` → timeline updates
 4. **Phone** (`/phone`) — Needs License banner + mock call log + tel: link
-5. **Capability Map** (`/capability-map`) — Filter "Not Possible" → highlight server-side outbound call
+5. **Capability Map** (`/capability-map`) — Filter "Not Possible" → highlight server-side outbound call; check `implementation` badges (mock / simulated / real)
 6. **Diagnostics** (`/diagnostics`) — Limitations list
 
 ## Webhook replay (no ngrok)

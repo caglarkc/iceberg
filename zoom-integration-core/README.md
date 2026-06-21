@@ -31,7 +31,9 @@ docker compose up
 
 Faz 2 credentials (commented in `.env.example`): `ZOOM_ACCOUNT_ID`, `ZOOM_CLIENT_ID`, `ZOOM_CLIENT_SECRET`, `ZOOM_SDK_KEY`, `ZOOM_SDK_SECRET`.
 
-## API (M3 contract)
+## API (M2 native routes)
+
+M3 consumes a different path layout (`/api/v1/*`). See [`docs/M3_BRIDGE_MAPPING.md`](docs/M3_BRIDGE_MAPPING.md).
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -48,7 +50,8 @@ Faz 2 credentials (commented in `.env.example`): `ZOOM_ACCOUNT_ID`, `ZOOM_CLIENT
 | GET | `/api/zoom/meetings/:uuid/transcript` | Transcript text |
 | PATCH / DELETE | `/api/zoom/meetings/:id` | Update / cancel |
 
-OpenAPI (M3 contract, v0.1.1): [`docs/openapi.yaml`](docs/openapi.yaml)
+OpenAPI (M2 native, v0.1.1): [`docs/openapi.yaml`](docs/openapi.yaml)  
+M3 bridge mapping: [`docs/M3_BRIDGE_MAPPING.md`](docs/M3_BRIDGE_MAPPING.md)
 
 ## Architecture
 
@@ -82,4 +85,5 @@ GitHub CI: monorepo root [`.github/workflows/zoom-integration-core-ci.yml`](../.
 - [`TEST_PLAN.md`](TEST_PLAN.md)
 - [`HANDOVER.md`](HANDOVER.md)
 - [`docs/CAPABILITY_MAP.md`](docs/CAPABILITY_MAP.md)
+- [`docs/M3_BRIDGE_MAPPING.md`](docs/M3_BRIDGE_MAPPING.md)
 - [`docs/ZOOM_PARTNER_ESCALATION.md`](docs/ZOOM_PARTNER_ESCALATION.md)

@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: M3 Bridge Adapter (M2 overlay)
+  version: 0.1.0
+  description: |
+    Adapter-layer contract showing how M3 consumer paths map to M2 native routes.
+    Implement as reverse proxy, gateway, or thin Node service — not served by M2 Ay 1.
+    Full mapping table: M3_BRIDGE_MAPPING.md
+servers:
+  - url: http://localhost:4010/api/v1
+    description: M3-facing base (after bridge)
+paths:
+  /capabilities:
+    get:
+      summary: Capability discovery (M3 shape)
+      x-m2-target: GET /api/zoom/capability-map
+      responses:
+        "200":
+          description: Derived from M2 capability map
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CapabilitiesResponse"
+  /meetings:
+    post:
+      summary: Create scheduled meeting
+      x-m2-target: POST /api/zoom/meetings
+      responses:
+        "201":
+          description: Meeting created (M3 response shape)
+  /meetings/instant:
+    post:
+      summary: Create instant meeting
+      x-m2-target: POST /api/zoom/meetings
+      description: Bridge sets type=1 on M2 create body
+      responses:
+        "201":
+          description: Instant meeting started
+  /meetings/{id}:
+    get:
+      summary: Get meeting details
+      x-m2-target: GET /api/zoom/meetings/{id}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Meeting detail (field names normalized to M3)
+  /meetings/{id}/embed-signature:
+    post:
+      summary: Generate Meeting SDK signature
+      x-m2-target: POST /api/zoom/signature
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: SDK signature payload (M3 embed shape)
+  /webhooks/replay:
+    post:
+      summary: Replay webhook fixture (demo)
+      x-m2-target: POST /internal/webhooks/replay
+      responses:
+        "200":
+          description: Fixture ingested
+components:
+  schemas:
+    CapabilitiesResponse:
+      type: object
+      description: M3 consumer shape; bridge derives from GET /api/zoom/capability-map
+      properties:
+        create_meeting:
+          type: boolean
+        instant_meeting:
+          type: boolean
+        embed_sdk:
+          type: boolean
+        cloud_recording:
+          type: boolean
+        transcript_webhook:
+          type: string
+        phone:
+          type: boolean

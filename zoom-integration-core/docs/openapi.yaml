@@ -4,7 +4,8 @@ info:
   version: 0.1.1
   description: |
     Iceberg M2 — mock-first Zoom integration service.
-    M3 consumes this contract as an external black-box HTTP API.
+    Native routes under `/api/zoom/*`. M3 consumer contract (`/api/v1/*`) is mapped
+    via bridge — see docs/M3_BRIDGE_MAPPING.md and docs/bridge-contract.yaml.
 servers:
   - url: http://localhost:4010
     description: Local development (ZOOM_MODE=mock)
@@ -216,6 +217,17 @@ paths:
       responses:
         "200":
           description: Filtered capability items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CapabilityItem"
+                  total:
+                    type: integer
 
   /api/zoom/phone/capabilities:
     get:
@@ -331,6 +343,22 @@ components:
       schema: { type: string }
 
   schemas:
+    CapabilityItem:
+      type: object
+      required: [feature_key, title, description, status, implementation, notes]
+      properties:
+        feature_key: { type: string }
+        title: { type: string }
+        description: { type: string }
+        status:
+          type: string
+          enum: [possible_now, needs_license, not_possible, escalate]
+        implementation:
+          type: string
+          enum: [real, mock, simulated, none]
+          description: Ay 1 honesty — real code vs mock adapter vs simulated UI
+        notes: { type: string }
+
     CreateMeetingRequest:
       type: object
       required: [topic]
