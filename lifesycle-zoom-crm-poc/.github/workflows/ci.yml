@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      ZOOM_MODE: mock
+      ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: lifesycle-zoom-crm-poc/package-lock.json
+      - working-directory: lifesycle-zoom-crm-poc
+        run: npm ci
+      - working-directory: lifesycle-zoom-crm-poc
+        run: npm run lint
+      - working-directory: lifesycle-zoom-crm-poc
+        run: npm run typecheck
+      - working-directory: lifesycle-zoom-crm-poc
+        run: npm run test -- --coverage

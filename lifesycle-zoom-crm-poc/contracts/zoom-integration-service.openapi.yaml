@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Zoom Integration Service
+  version: 1.0.0
+  description: External black-box API consumed by Lifesycle CRM (M3)
+servers:
+  - url: http://localhost:4010/api/v1
+paths:
+  /capabilities:
+    get:
+      summary: Capability discovery
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Service capabilities
+  /meetings:
+    post:
+      summary: Create scheduled meeting
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMeetingInput"
+      responses:
+        "201":
+          description: Meeting created
+  /meetings/instant:
+    post:
+      summary: Create instant meeting
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Instant meeting started
+  /meetings/{id}:
+    get:
+      summary: Get meeting details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Meeting detail
+  /meetings/{id}/embed-signature:
+    post:
+      summary: Generate Meeting SDK signature
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: SDK signature payload
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    CreateMeetingInput:
+      type: object
+      required: [topic, tracking]
+      properties:
+        topic:
+          type: string
+        type:
+          type: integer
+        start_time:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+        timezone:
+          type: string
+        tracking:
+          type: object
+          required: [crm_contact_id]
+          properties:
+            crm_contact_id:
+              type: string
+            crm_property_id:
+              type: string
+            crm_valuation_id:
+              type: string
+            crm_agent_id:
+              type: string

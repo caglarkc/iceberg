@@ -1,0 +1,38 @@
+{
+  "name": "lifesycle-zoom-crm-poc",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @lifesycle/web & npm run dev --workspace @lifesycle/zoom-service-mock",
+    "dev:web": "npm run dev --workspace @lifesycle/web",
+    "dev:zoom-mock": "npm run dev --workspace @lifesycle/zoom-service-mock",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "eslint .",
+    "typecheck": "tsc -b && npm run typecheck --workspace @lifesycle/web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "seed": "npm run seed --workspace @lifesycle/crm-mock"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.2",
+    "@types/supertest": "^6.0.2",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.17.0",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
+    "vitest": "^2.1.8"
+  }
+}

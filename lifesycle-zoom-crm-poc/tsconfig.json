@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/crm-mock" },
+    { "path": "./packages/zoom-client" },
+    { "path": "./tools/zoom-service-mock" }
+  ]
+}
