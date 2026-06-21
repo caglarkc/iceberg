@@ -1,0 +1,7 @@
+// @ai-generated
+export function summarizeWithMockLlm(text: string) {
+  return {
+    provider: "mock",
+    summary: text.length > 120 ? `${text.slice(0, 117)}...` : text
+  };
+}

@@ -6,7 +6,8 @@ export default defineConfig({
       "@iceberg/parser": new URL("./packages/parser/src/index.ts", import.meta.url).pathname,
       "@iceberg/scaffolder": new URL("./packages/scaffolder/src/index.ts", import.meta.url).pathname,
       "@iceberg/handover-gen": new URL("./packages/handover-gen/src/index.ts", import.meta.url).pathname,
-      "@iceberg/llm": new URL("./packages/llm/src/index.ts", import.meta.url).pathname
+      "@iceberg/llm": new URL("./packages/llm/src/index.ts", import.meta.url).pathname,
+      "@iceberg/mcp-server": new URL("./packages/mcp-server/src/index.ts", import.meta.url).pathname
     }
   },
   test: {

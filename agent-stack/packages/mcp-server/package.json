@@ -2,6 +2,9 @@
   "name": "@iceberg/mcp-server",
   "version": "0.1.0",
   "type": "module",
+  "bin": {
+    "iceberg-template-mcp": "./dist/src/index.js"
+  },
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
@@ -12,6 +15,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@iceberg/scaffolder": "0.1.0"
+    "@iceberg/scaffolder": "0.1.0",
+    "@modelcontextprotocol/sdk": "^1.29.0"
   }
 }

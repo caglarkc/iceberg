@@ -1,0 +1,14 @@
+// @ai-generated
+export interface Contact {
+  id: string;
+  name: string;
+  source: "mock";
+}
+
+export function createContact(name: string): Contact {
+  return {
+    id: `contact-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    name,
+    source: "mock"
+  };
+}

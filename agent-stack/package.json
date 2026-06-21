@@ -5,7 +5,7 @@
   "description": "Iceberg Agent Stack POC: mission brief parser, scaffold generator, and handover package generator.",
   "type": "module",
   "bin": {
-    "iceberg-agent": "./apps/cli/dist/index.js"
+    "iceberg-agent": "./apps/cli/dist/src/index.js"
   },
   "workspaces": [
     "packages/*",
@@ -18,7 +18,8 @@
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "scaffold": "node apps/cli/dist/index.js"
+    "smoke": "bash scripts/smoke-test.sh",
+    "scaffold": "node apps/cli/dist/src/index.js"
   },
   "dependencies": {
     "commander": "^12.1.0",
@@ -27,9 +28,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
-    "@vitest/coverage-v8": "^2.1.1",
+    "@vitest/coverage-v8": "^4.1.9",
     "typescript": "^5.5.3",
-    "vitest": "^2.1.1"
+    "vitest": "^4.1.9"
   },
   "engines": {
     "node": ">=20"

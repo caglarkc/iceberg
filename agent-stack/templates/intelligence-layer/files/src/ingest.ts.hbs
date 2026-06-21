@@ -1,0 +1,8 @@
+// @ai-generated
+export function ingestDocument(text: string) {
+  return {
+    id: `doc-${Buffer.from(text).toString("base64url").slice(0, 10)}`,
+    text,
+    ingestedAt: new Date().toISOString()
+  };
+}

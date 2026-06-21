@@ -10,13 +10,15 @@ Iceberg Agent Stack turns a mission brief into a review-ready POC scaffold plus 
 - Scaffold generator: Handlebars-based file tree rendering.
 - Handover generator: `README.md`, `TEST_PLAN.md`, `HANDOVER.md`, `.env.example`.
 - LLM fallback: deterministic `LLM_PROVIDER=mock`; real providers are optional and not required.
-- CI: lint, typecheck, tests, coverage.
+- MCP: stdio read-only `iceberg-template-mcp` server for template discovery.
+- CI: root GitHub Actions workflow runs build, lint, typecheck, tests, coverage, and smoke.
 
 ## Quick Start
 ```bash
 npm install
 npm run build
-LLM_PROVIDER=mock npm run test
+LLM_PROVIDER=mock npm run test -- --coverage
+npm run smoke
 ```
 
 ## CLI
@@ -26,6 +28,13 @@ npm run scaffold -- generate --brief tests/fixtures/briefs/sample-mission.md --t
 npm run scaffold -- generate --brief tests/fixtures/briefs/sample-mission.md --template api-integration-core --out worktrees/demo-run-001 --approve
 npm run scaffold -- handover --brief tests/fixtures/briefs/sample-mission.md --template api-integration-core --out worktrees/demo-run-001 --approve
 ```
+
+## Demo Artefacts
+- `demo/sample-brief.md`: demo input.
+- `demo/expected-tree.txt`: expected scaffold tree.
+- `demo/output/`: approved sample scaffold output.
+- `demo/screenshots/`: captured CLI transcripts for parse, dry-run, and approve flows.
+- `docs/DEMO_SCRIPT.md`: five-minute live demo script.
 
 ## Governance
 - No autonomous push, merge, or production deploy.
@@ -39,4 +48,5 @@ npm run scaffold -- handover --brief tests/fixtures/briefs/sample-mission.md --t
 npm run lint
 npm run typecheck
 npm run test -- --coverage
+npm run smoke
 ```

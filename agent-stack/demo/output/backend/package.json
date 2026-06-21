@@ -1,0 +1,11 @@
+{
+  "name": "third-party-api-integration-core-service-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.ts",
+    "test": "node --test"
+  },
+  "dependencies": {}
+}

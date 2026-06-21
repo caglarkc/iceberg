@@ -1,0 +1,10 @@
+.ai-metadata.json
+.env.example
+HANDOVER.md
+README.md
+TEST_PLAN.md
+package.json
+src/governance.ts
+src/index.ts
+src/mockCrm.ts
+src/timeline.ts

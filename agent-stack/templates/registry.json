@@ -1,0 +1,20 @@
+[
+  {
+    "id": "api-integration-core",
+    "name": "API Integration Core",
+    "description": "Adapter-oriented third-party API integration POC with backend, frontend, docs, and mock mode.",
+    "tags": ["api", "integration", "oauth", "webhook", "sdk", "meeting", "event"]
+  },
+  {
+    "id": "crm-mock-poc",
+    "name": "CRM Mock POC",
+    "description": "Minimal CRM workflow mock with timeline, mock CRM API, and handover-ready docs.",
+    "tags": ["crm", "customer", "timeline", "mock", "workflow"]
+  },
+  {
+    "id": "intelligence-layer",
+    "name": "Intelligence Layer",
+    "description": "Document ingestion and structured insight service skeleton with mock LLM fallback.",
+    "tags": ["intelligence", "rag", "llm", "classification", "summary", "document"]
+  }
+]

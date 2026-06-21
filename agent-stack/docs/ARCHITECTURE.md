@@ -16,5 +16,5 @@ flowchart LR
 - `packages/handover-gen`: mandatory docs and `.env.example`.
 - `packages/llm`: mock-first service interface with optional provider placeholders.
 - `packages/orchestrator`: package-level facade for future agent orchestration.
-- `packages/mcp-server`: POC manifest stub for template tools.
+- `packages/mcp-server`: stdio MCP server exposing read-only template discovery tools.
 - `apps/cli`: command-line interface.

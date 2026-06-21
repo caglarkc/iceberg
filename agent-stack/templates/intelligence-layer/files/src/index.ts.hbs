@@ -1,0 +1,13 @@
+// @ai-generated
+import { ingestDocument } from "./ingest.js";
+import { classifyDocument } from "./classifier.js";
+import { summarizeWithMockLlm } from "./mockLlm.js";
+
+export function runDemo(text: string) {
+  const document = ingestDocument(text);
+  return {
+    document,
+    classification: classifyDocument(document.text),
+    summary: summarizeWithMockLlm(document.text)
+  };
+}

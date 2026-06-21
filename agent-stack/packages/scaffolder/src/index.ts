@@ -45,7 +45,7 @@ export const templateRegistry: TemplateDefinition[] = [
   {
     id: "crm-mock-poc",
     name: "CRM Mock POC",
-    description: "Minimal CRM workflow mock with timeline and integration service placeholders.",
+    description: "Minimal CRM workflow mock with timeline, mock CRM API, and handover-ready docs.",
     tags: ["crm", "customer", "timeline", "mock", "workflow"]
   },
   {

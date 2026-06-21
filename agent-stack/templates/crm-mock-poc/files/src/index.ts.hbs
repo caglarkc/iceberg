@@ -1,0 +1,9 @@
+// @ai-generated
+import { createContact } from "./mockCrm.js";
+import { createTimelineEvent } from "./timeline.js";
+
+export function runDemo() {
+  const contact = createContact("Ada Lovelace");
+  const event = createTimelineEvent(contact.id, "Mock CRM workflow started");
+  return { contact, event };
+}

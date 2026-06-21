@@ -6,12 +6,16 @@
 - Scaffolder renders the `api-integration-core` golden tree.
 - Scaffolder blocks disk writes unless `--approve` is present.
 - CLI dry-run prints a tree and writes no files.
+- CLI generate without `--approve` blocks writes.
 - Handover generator emits `README.md`, `TEST_PLAN.md`, `HANDOVER.md`, and `.env.example`.
 - Mock LLM returns deterministic template suggestions.
+- All three templates have golden tree tests.
+- MCP template server exposes read-only template discovery tools.
 
 ## CI Command
 ```bash
 LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run test -- --coverage
+npm run smoke
 ```
 
 ## Manual Demo

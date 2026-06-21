@@ -1,0 +1,23 @@
+{
+  "mission_id": "third-party-api-integration-core-service",
+  "problem": "Iceberg X needs a repeatable POC skeleton for third-party SaaS API integrations with OAuth, webhooks, SDK signature stubs, mock mode, and a small frontend demo page.",
+  "deliverables": [
+    "Runnable repo skeleton",
+    ".env.example with secret names only",
+    "README with setup steps",
+    "TEST_PLAN.md",
+    "HANDOVER.md with known issues and next steps"
+  ],
+  "constraints": [
+    "Production-ready is out of scope",
+    "Mock mode default",
+    "AI-generated output requires human review"
+  ],
+  "tech_hints": [
+    "Backend: Node.js + Express + TypeScript",
+    "Frontend: React + Vite",
+    "Auth: OAuth 2.0 client credentials",
+    "Endpoints: health, create-resource stub, webhook receiver, SDK signature stub",
+    "Storage: in-memory for POC"
+  ]
+}
