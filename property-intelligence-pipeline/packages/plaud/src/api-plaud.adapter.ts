@@ -1,9 +1,12 @@
+import { createHmac, timingSafeEqual } from "node:crypto";
 import type { PlaudProviderAdapter, PlaudRecordingRaw } from "./plaud-provider.interface.js";
 
 export type ApiPlaudConfig = {
   baseUrl: string;
   clientId: string;
   apiKey: string;
+  /** HMAC-SHA256 secret for webhook signature verification (PLAUD_WEBHOOK_SECRET). */
+  webhookSecret?: string;
 };
 
 export class ApiPlaudAdapter implements PlaudProviderAdapter {
@@ -53,8 +56,22 @@ export class ApiPlaudAdapter implements PlaudProviderAdapter {
     return { ...raw, fetched_via: "api" };
   }
 
-  verifyWebhook(headers: Record<string, string>, _body: string): boolean {
+  verifyWebhook(headers: Record<string, string>, body: string): boolean {
+    const secret = this.config.webhookSecret;
+    if (!secret) return false;
+
     const signature = headers["x-plaud-signature"] ?? headers["X-Plaud-Signature"];
-    return Boolean(signature && this.config.apiKey);
+    if (!signature) return false;
+
+    const expected = createHmac("sha256", secret).update(body, "utf8").digest("hex");
+    const provided = signature.startsWith("sha256=") ? signature.slice("sha256=".length) : signature;
+
+    try {
+      const providedBuf = Buffer.from(provided, "hex");
+      const expectedBuf = Buffer.from(expected, "hex");
+      return providedBuf.length === expectedBuf.length && timingSafeEqual(providedBuf, expectedBuf);
+    } catch {
+      return false;
+    }
   }
 }

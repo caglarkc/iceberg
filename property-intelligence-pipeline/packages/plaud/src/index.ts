@@ -15,6 +15,7 @@ export function createPlaudAdapterFromEnv(env: NodeJS.ProcessEnv = process.env):
   return new ApiPlaudAdapter({
     baseUrl: env.PLAUD_API_BASE_URL ?? "",
     clientId: env.PLAUD_CLIENT_ID ?? "",
-    apiKey: env.PLAUD_CLIENT_API_KEY ?? ""
+    apiKey: env.PLAUD_CLIENT_API_KEY ?? "",
+    webhookSecret: env.PLAUD_WEBHOOK_SECRET
   });
 }
