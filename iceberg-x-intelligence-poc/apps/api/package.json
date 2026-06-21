@@ -1,0 +1,21 @@
+{
+  "name": "@iceberg/api",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint src tests",
+    "test": "vitest run apps/api/tests"
+  },
+  "dependencies": {
+    "@iceberg/llm": "0.1.0",
+    "@iceberg/shared": "0.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "zod": "^3.24.1"
+  }
+}

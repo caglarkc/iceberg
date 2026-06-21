@@ -1,0 +1,20 @@
+{
+  "name": "@iceberg/orchestrator",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@iceberg/parser": "0.1.0",
+    "@iceberg/scaffolder": "0.1.0",
+    "@iceberg/handover-gen": "0.1.0",
+    "@iceberg/llm": "0.1.0"
+  }
+}

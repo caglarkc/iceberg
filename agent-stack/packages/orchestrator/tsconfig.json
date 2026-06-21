@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist"
+  },
+  "references": [
+    { "path": "../parser" },
+    { "path": "../scaffolder" },
+    { "path": "../handover-gen" },
+    { "path": "../llm" }
+  ],
+  "include": ["src/**/*.ts"]
+}

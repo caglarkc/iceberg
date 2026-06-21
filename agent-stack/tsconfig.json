@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/parser" },
+    { "path": "./packages/llm" },
+    { "path": "./packages/scaffolder" },
+    { "path": "./packages/handover-gen" },
+    { "path": "./packages/orchestrator" },
+    { "path": "./packages/mcp-server" },
+    { "path": "./apps/cli" }
+  ]
+}

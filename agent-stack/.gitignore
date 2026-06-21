@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+worktrees/
+output/
+scaffold_runs.jsonl
+.env
+.env.*
+!.env.example
+*.log
