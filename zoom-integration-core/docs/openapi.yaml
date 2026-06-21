@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Zoom Integration Core API
+  version: 0.1.0
+  description: Iceberg M2 — mock-first Zoom integration service (M3 consumer contract)
+servers:
+  - url: http://localhost:4010
+paths:
+  /api/zoom/health:
+    get:
+      summary: Service health
+      responses:
+        "200":
+          description: OK
+  /api/zoom/meetings:
+    get:
+      summary: List meetings
+    post:
+      summary: Create meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic]
+              properties:
+                topic: { type: string }
+  /api/zoom/meetings/{id}:
+    get:
+      summary: Get meeting
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+  /api/zoom/signature:
+    post:
+      summary: Meeting SDK JWT signature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [meetingNumber, role]
+              properties:
+                meetingNumber: { type: string }
+                role: { type: integer, enum: [0, 1] }
+  /api/zoom/webhooks:
+    post:
+      summary: Zoom webhook receiver
+  /api/zoom/events:
+    get:
+      summary: Webhook event log
+  /api/zoom/capability-map:
+    get:
+      summary: Capability matrix JSON
+  /api/zoom/phone/capabilities:
+    get:
+      summary: Phone license status
+  /internal/crm-adapter/timeline-event:
+    post:
+      summary: Map webhook event to CRM TimelineEvent

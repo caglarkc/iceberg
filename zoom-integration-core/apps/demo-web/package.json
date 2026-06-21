@@ -1,0 +1,13 @@
+{
+  "name": "@zoom/demo-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint src",
+    "preview": "vite preview"
+  }
+}
