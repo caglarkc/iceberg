@@ -253,6 +253,10 @@ Mission başlamadan **Iceberg Digital / Lifesycle legal** ile netleştirilecek m
 - [ ] Plaud partner escalation e-postası / ticket şablonu
 - [ ] `RETRIEVAL.md` — retrieval dokümantasyonu taslağı
 
+### 2.6 Git ve Push Disiplini (Zorunlu)
+
+Her faz/hafta milestone'ı sonunda: testler yeşil → `git commit` → `git push origin main`. Aşamalar arasında birikmiş commit'siz kod bırakma. Detay: `shared/plans/SHARED_PLAN_CONSTRAINTS.md` §2.6
+
 ---
 
 ## 3. Faz 1 — 1 Ay: Plaud API Pipeline (Ingest → Match → Extract → Review → Apply)

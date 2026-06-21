@@ -41,6 +41,8 @@
 
 ## AI Agent Başlatma (Kopyala-Yapıştır)
 
+📋 **Hazır kısa prompt'lar:** [AGENT_KICKOFF_PROMPTS.md](./AGENT_KICKOFF_PROMPTS.md)
+
 ```
 Görev: M[N] mission'ını sıfırdan implement et.
 
@@ -50,6 +52,7 @@ Görev: M[N] mission'ını sıfırdan implement et.
 
 Kurallar:
 - Testler her milestone'da zorunlu; CI yeşil olmadan ilerleme sayılmaz
+- Her aşama (Faz 0, Hafta 1, …) sonunda commit + push — unutma
 - v1.1 credential kısıtlarına uy
 - README + TEST_PLAN + HANDOVER + .env.example üret
 ```

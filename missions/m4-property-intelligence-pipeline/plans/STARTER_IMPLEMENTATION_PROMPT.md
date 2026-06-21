@@ -228,6 +228,20 @@ CI workflow env: `PLAUD_MODE=mock`, `LLM_PROVIDER=mock`
 
 ---
 
+## Git Workflow (Zorunlu)
+
+Her **Faz 0 / Hafta 1–4** aşaması bittiğinde:
+
+```bash
+npm run lint && npm run typecheck && npm run test
+git add -A && git commit -m "feat(m4): <aşama özeti>"
+git push origin main
+```
+
+Testler yeşil değilse commit yok. Her aşama sonunda **commit + push** — unutma.
+
+---
+
 ## Başlangıç Komutu
 
-İlk iş: fixtures/m4 + `MockPlaudAdapter` + matching unit tests + ingest API + CI.
+İlk iş: fixtures/m4 + `MockPlaudAdapter` + matching unit tests + ingest API + CI. Faz 0 bitince commit + push.

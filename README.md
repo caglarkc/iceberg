@@ -4,6 +4,8 @@ Iceberg Digital **5 paralel R&D mission** için araştırma, planlama ve impleme
 
 **Güncelleme:** 21 Haziran 2026
 
+**GitHub:** https://github.com/caglarkc/iceberg
+
 ---
 
 ## Klasör Yapısı

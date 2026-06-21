@@ -151,6 +151,10 @@ ZOOM_OAUTH_REDIRECT_URI=
 
 **Faz 0 süresi:** 3–5 iş günü (Hafta 1'in ilk yarısı ile örtüşür)
 
+### 2.7 Git ve Push Disiplini (Zorunlu)
+
+Her faz/hafta milestone'ı sonunda: testler yeşil → `git commit` → `git push origin main`. Aşamalar arasında birikmiş commit'siz kod bırakma. Detay: `shared/plans/SHARED_PLAN_CONSTRAINTS.md` §2.6
+
 ---
 
 ## 3. Faz 1 — 1 Aylık Plan (Hafta 1–4): `zoom-integration-core`

@@ -199,6 +199,20 @@ ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test
 
 ---
 
+## Git Workflow (Zorunlu)
+
+Her **Faz 0 / Hafta 1–4** aşaması bittiğinde:
+
+```bash
+ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test
+git add -A && git commit -m "feat(m3): <aşama özeti>"
+git push origin main
+```
+
+Testler yeşil değilse commit yok. Her aşama sonunda **commit + push** — unutma.
+
+---
+
 ## Başlangıç Komutu
 
-İlk iş: Next.js + seed CRM + `MockZoomServiceAdapter` + `POST meetings` client + timeline event on create + ilk integration test.
+İlk iş: Next.js + seed CRM + `MockZoomServiceAdapter` + `POST meetings` client + timeline event on create + ilk integration test. Faz 0 bitince commit + push.

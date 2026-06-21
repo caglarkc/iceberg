@@ -1,0 +1,9 @@
+// @ai-generated
+export function createTimelineEvent(contactId: string, title: string) {
+  return {
+    id: `event-${contactId}`,
+    contactId,
+    title,
+    createdAt: new Date().toISOString()
+  };
+}

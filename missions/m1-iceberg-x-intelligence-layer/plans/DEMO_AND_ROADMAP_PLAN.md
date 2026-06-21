@@ -128,6 +128,10 @@ iceberg-x-intelligence-poc/
 | OpenAI key gecikmesi | Düşük | AI modülleri blok | Mock AI responses ile parallel dev |
 | Main team stack belirsiz | Orta | Production path belirsiz | Adapter pattern; TECH_PROPOSAL'da iki senaryo |
 
+### 2.5 Git ve Push Disiplini (Zorunlu)
+
+Her faz/hafta milestone'ı sonunda: testler yeşil → `git commit` → `git push origin main`. Detay: `shared/plans/SHARED_PLAN_CONSTRAINTS.md` §2.6
+
 ---
 
 ## 3. Faz 1 — 1 Aylık Demo Submit Planı

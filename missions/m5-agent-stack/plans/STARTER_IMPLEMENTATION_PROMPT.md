@@ -221,7 +221,7 @@ LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run test
 
 ## Yapma
 
-- Otonom git push / merge
+- Otonom merge (insan onayı olmadan main'e merge)
 - Secret okuma veya `.env` değerlerini loglama
 - Cursor API'ye hard dependency (opsiyonel kalmalı)
 - Hatalı mission brief dosyasındaki Zoom CRM scope'unu M5'e taşıma
@@ -229,6 +229,20 @@ LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run test
 
 ---
 
+## Git Workflow (Zorunlu)
+
+Her **Faz 0 / Hafta 1–4** aşaması bittiğinde:
+
+```bash
+npm run lint && npm run typecheck && npm run test
+git add -A && git commit -m "feat(m5): <aşama özeti>"
+git push origin main
+```
+
+Testler yeşil değilse commit yok. Her aşama sonunda **commit + push** — unutma.
+
+---
+
 ## Başlangıç Komutu
 
-İlk iş: `packages/parser` + Zod schema + 1 fixture brief test + `api-integration-core` minimal template + CLI `parse` command + CI.
+İlk iş: `packages/parser` + Zod schema + 1 fixture brief test + `api-integration-core` minimal template + CLI `parse` command + CI. Faz 0 bitince commit + push.

@@ -311,6 +311,10 @@ FEATURE_EMBED_SDK=true
 FEATURE_FOLLOW_UP_TASKS=false
 ```
 
+### 2.8 Git ve Push Disiplini (Zorunlu)
+
+Her faz/hafta milestone'ı sonunda: testler yeşil → `git commit` → `git push origin main`. Aşamalar arasında birikmiş commit'siz kod bırakma. Detay: `shared/plans/SHARED_PLAN_CONSTRAINTS.md` §2.6
+
 ---
 
 ## 3. Faz 1 — 1 Ay: Hafta 1 MVP, Hafta 2 Embed, Hafta 3 Polish + Handover
