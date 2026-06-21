@@ -16,11 +16,18 @@ npm install
 PLAUD_MODE=mock LLM_PROVIDER=mock npm run dev
 ```
 
+- API: http://localhost:3002
+- Web: http://localhost:5174
+
 Open http://localhost:5174 → **Load mock fixtures** → **14 Oak Lane** (T1).
+
+## Persistence (POC)
+
+Pipeline state uses an **in-memory `PipStore`** — restart clears inbox, matches, and review queue. Postgres schema (`drizzle/0001_initial.sql`) and `docker-compose.yml` are optional for Faz 2; not required for demo or CI.
 
 ## CI
 
-Workflow: **`.github/workflows/property-intelligence-pipeline-ci.yml`** (repository root).
+Workflow: **`.github/workflows/property-intelligence-pipeline-ci.yml`** (repository root). **CI always sets `PLAUD_MODE=mock`** (and `LLM_PROVIDER=mock`) — no live Plaud or LLM calls in GitHub Actions.
 
 ```bash
 PLAUD_MODE=mock LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run test -- --coverage
@@ -35,17 +42,19 @@ PLAUD_MODE=mock LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run t
 | In-memory `PipStore` | PostgreSQL — see `drizzle/0001_initial.sql` + `docker-compose.yml` |
 | Demo auth (`actorId` constant) | SSO / per-agent session |
 
-## Live Plaud demo
+## Live Plaud smoke (manual — not CI)
 
-`ApiPlaudAdapter` is implemented and covered by unit tests (mocked `fetch`). **Real ingest is not verified in CI** — partner credentials required:
+`ApiPlaudAdapter` is implemented and covered by unit tests (mocked `fetch`). **Real ingest is not verified in CI** — partner credentials required. Run locally only:
 
-```bash
-PLAUD_MODE=live
-PLAUD_API_BASE_URL=<partner-url>
-PLAUD_CLIENT_API_KEY=<key>
-```
+| Step | Action | Expected |
+|------|--------|----------|
+| L1 | Copy `.env.example` → `.env`; set `PLAUD_MODE=live`, `PLAUD_API_BASE_URL`, `PLAUD_CLIENT_API_KEY`, `PLAUD_WEBHOOK_SECRET` | Env loads without error |
+| L2 | `PLAUD_MODE=live LLM_PROVIDER=mock npm run dev` | API on :3002, web on :5174 |
+| L3 | Call `listRecordings` via adapter or partner poll endpoint | ≥1 recording or empty list (not 401/403) |
+| L4 | POST sample webhook body with valid `x-plaud-signature` (HMAC-SHA256 of body with `PLAUD_WEBHOOK_SECRET`) | `verifyWebhook` returns true |
+| L5 | Repeat L4 with wrong signature | `verifyWebhook` returns false |
 
-Endpoint shape `/v1/recordings` is provisional until partner spec is confirmed. See `DEMO_DAY_REFLECTION.md`.
+Endpoint shape `/v1/recordings` is provisional until partner spec is confirmed. Partner webhook algorithm may differ in production — confirm with Plaud before go-live. See `DEMO_DAY_REFLECTION.md`.
 
 ## Known issues
 

@@ -38,6 +38,7 @@ Copy `.env.example` → `.env`:
 | `PLAUD_MODE` | `mock` (CI) or `live` (`ApiPlaudAdapter`) |
 | `PLAUD_API_BASE_URL` | Plaud partner API base URL |
 | `PLAUD_CLIENT_API_KEY` | Partner API key |
+| `PLAUD_WEBHOOK_SECRET` | HMAC-SHA256 webhook secret (`x-plaud-signature`; partner algorithm may differ) |
 | `LLM_PROVIDER` | `mock` \| `gemini` \| `openai` \| `anthropic` |
 | `GEMINI_API_KEY` | For live extraction |
 | `COMPANY_ID` | Tenant scope (`company-iceberg-001` demo) |
