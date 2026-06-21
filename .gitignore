@@ -1,0 +1,15 @@
+# Dependencies & build artifacts
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# OS & logs
+.DS_Store
+*.log

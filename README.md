@@ -1,65 +1,95 @@
-# Iceberg X — R&D Mission Workspace
+# Iceberg X
 
-Iceberg Digital **5 paralel R&D mission** için araştırma, planlama ve implementation dokümantasyonu.
+Monorepo for the **Iceberg X** product portfolio: five mission-scoped proof-of-concept applications, shared planning assets, and the agent scaffolding toolchain. Each POC is an independent Node.js workspace with its own README, tests, and CI workflow.
 
-**Güncelleme:** 21 Haziran 2026
-
-**GitHub:** https://github.com/caglarkc/iceberg
+**Last updated:** June 2026
 
 ---
 
-## Klasör Yapısı
+## Repository layout
 
 ```
 iceberg/
-├── shared/                          # Tüm mission'lar için ortak
-│   ├── documents/                   # Genel bakış, değerlendirme, research prompt
-│   ├── plans/                       # Ortak kısıtlar + implementation indeksi
-│   └── research/                    # AI ortak araştırma raporları (model bazlı)
-│       ├── opus/
-│       ├── composer/
-│       ├── codex/
-│       ├── grok/
-│       ├── gemini/
-│       ├── codex5.5-chrome/
-│       └── grok-chrome/
-└── missions/
-    ├── m1-iceberg-x-intelligence-layer/
-    ├── m2-zoom-integration-core/
-    ├── m3-lifesycle-zoom-meeting-flow/
-    ├── m4-property-intelligence-pipeline/
-    └── m5-agent-stack/
-        ├── brief/                   # Resmi mission brief
-        ├── plans/                   # Demo roadmap + starter implementation prompt
-        └── research/                # Mission'a özel AI çıktıları (model bazlı)
-            └── {model}/IMPLEMENTATION_PROMPT.md
+├── missions/          # Mission plans, starter prompts, and acceptance criteria (M1–M5)
+├── shared/plans/      # Cross-mission constraints, implementation index, agent kickoff prompts
+├── agent-stack/       # M5 — POC scaffolder, governance, and template library
+├── iceberg-x-intelligence-poc/   # M1 — Intelligence layer (ingest, LLM, review UI)
+├── zoom-integration-core/      # M2 — Zoom provider abstraction (mock-first)
+├── lifesycle-zoom-crm-poc/     # M3 — CRM + Zoom meeting flow POC
+└── property-intelligence-pipeline/  # M4 — Plaud ingest → match → extract → apply
 ```
 
----
+| Mission | Product | Directory | Local API port |
+|---------|---------|-----------|----------------|
+| M1 | Iceberg X Intelligence Layer | [`iceberg-x-intelligence-poc/`](iceberg-x-intelligence-poc/) | 3101 |
+| M2 | Zoom Integration Core | [`zoom-integration-core/`](zoom-integration-core/) | 3201 |
+| M3 | Lifesycle Zoom Meeting Flow | [`lifesycle-zoom-crm-poc/`](lifesycle-zoom-crm-poc/) | 3301 |
+| M4 | Property Intelligence Pipeline | [`property-intelligence-pipeline/`](property-intelligence-pipeline/) | 3401 |
+| M5 | Agent Stack | [`agent-stack/`](agent-stack/) | — |
 
-## Hızlı Başlangıç (AI Agent)
-
-1. [`shared/plans/IMPLEMENTATION_INDEX.md`](shared/plans/IMPLEMENTATION_INDEX.md)
-2. [`shared/plans/SHARED_PLAN_CONSTRAINTS.md`](shared/plans/SHARED_PLAN_CONSTRAINTS.md)
-3. İlgili mission: `missions/m[N]-*/plans/STARTER_IMPLEMENTATION_PROMPT.md`
-
----
-
-## Mission Özeti
-
-| # | Klasör | Ürün |
-|---|--------|------|
-| M1 | `missions/m1-iceberg-x-intelligence-layer/` | Iceberg X Intelligence Layer |
-| M2 | `missions/m2-zoom-integration-core/` | Zoom Integration Core |
-| M3 | `missions/m3-lifesycle-zoom-meeting-flow/` | Lifesycle Zoom Meeting Flow |
-| M4 | `missions/m4-property-intelligence-pipeline/` | Property Intelligence Pipeline |
-| M5 | `missions/m5-agent-stack/` | Agent Stack |
-
-Detay: [`shared/documents/MISSIONS_OVERVIEW.md`](shared/documents/MISSIONS_OVERVIEW.md)
+Planning and agent onboarding: [`shared/plans/IMPLEMENTATION_INDEX.md`](shared/plans/IMPLEMENTATION_INDEX.md)
 
 ---
 
-## Araştırma Değerlendirmesi
+## Continuous integration
 
-7 AI çıktısı karşılaştırması: [`shared/documents/FINAL_EVALUATION_AND_CONSOLIDATED_PLAN.md`](shared/documents/FINAL_EVALUATION_AND_CONSOLIDATED_PLAN.md)
-# iceberg
+Each POC has a path-scoped workflow under [`.github/workflows/`](.github/workflows/). Pipelines run on `push` and `pull_request` to `main` when files in that POC change.
+
+| Workflow | POC |
+|----------|-----|
+| `iceberg-x-intelligence-poc-ci.yml` | M1 |
+| `zoom-integration-core-ci.yml` | M2 |
+| `lifesycle-zoom-crm-poc-ci.yml` | M3 |
+| `property-intelligence-poc-ci.yml` | M4 |
+| `agent-stack-ci.yml` | M5 |
+
+All workflows use **Node 20**, `npm ci`, lint, typecheck, and tests with coverage gates where configured.
+
+---
+
+## Quick start (any POC)
+
+```bash
+cd <poc-directory>
+cp .env.example .env    # adjust keys per README
+npm ci
+npm run dev             # or npm run build && npm start — see POC README
+npm run lint && npm run typecheck && npm run test
+```
+
+Month-1 defaults (no live Zoom): `ZOOM_MODE=mock`, `LLM_PROVIDER=mock` where applicable.
+
+---
+
+## Missions folder
+
+[`missions/`](missions/) holds product plans and **STARTER_IMPLEMENTATION_PROMPT** files for AI-assisted implementation. These are specification documents, not runtime code.
+
+| Mission | Folder |
+|---------|--------|
+| M1 | [`missions/m1-iceberg-x-intelligence-layer/`](missions/m1-iceberg-x-intelligence-layer/) |
+| M2 | [`missions/m2-zoom-integration-core/`](missions/m2-zoom-integration-core/) |
+| M3 | [`missions/m3-lifesycle-zoom-meeting-flow/`](missions/m3-lifesycle-zoom-meeting-flow/) |
+| M4 | [`missions/m4-property-intelligence-pipeline/`](missions/m4-property-intelligence-pipeline/) |
+| M5 | [`missions/m5-agent-stack/`](missions/m5-agent-stack/) |
+
+---
+
+## Shared plans
+
+[`shared/plans/`](shared/plans/) — credential policy, LLM defaults, test requirements, and copy-paste agent kickoff prompts.
+
+---
+
+## Contributing
+
+1. Work in the POC directory for your mission; do not cross-mix unrelated missions in one commit.
+2. Keep commits scoped (`feat(mN):`, `fix(mN):`, `chore(repo):`).
+3. Ensure local `lint`, `typecheck`, and `test` pass before push.
+4. Each POC must maintain `README.md`, `TEST_PLAN.md`, `HANDOVER.md`, and `.env.example`.
+
+---
+
+## License
+
+Private — Iceberg X internal use.
