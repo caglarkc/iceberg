@@ -1,11 +1,18 @@
+import { createHmac } from "node:crypto";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiPlaudAdapter } from "@pip/plaud";
 
+const webhookSecret = "webhook-test-secret";
 const config = {
   baseUrl: "https://api.plaud.test",
   clientId: "client-iceberg",
-  apiKey: "test-api-key"
+  apiKey: "test-api-key",
+  webhookSecret
 };
+
+function signWebhookBody(body: string): string {
+  return createHmac("sha256", webhookSecret).update(body, "utf8").digest("hex");
+}
 
 describe("ApiPlaudAdapter", () => {
   beforeEach(() => {
@@ -81,10 +88,28 @@ describe("ApiPlaudAdapter", () => {
     expect(calledUrl).toContain("since=2026-06-01");
   });
 
-  it("verifyWebhook requires signature header and api key", () => {
+  it("verifyWebhook accepts valid HMAC-SHA256 signature", () => {
     const adapter = new ApiPlaudAdapter(config);
-    expect(adapter.verifyWebhook?.({}, "{}")).toBe(false);
-    expect(adapter.verifyWebhook?.({ "x-plaud-signature": "sig" }, "{}")).toBe(true);
+    const body = '{"event":"recording.ready"}';
+    const signature = signWebhookBody(body);
+    expect(adapter.verifyWebhook?.({ "x-plaud-signature": signature }, body)).toBe(true);
+    expect(adapter.verifyWebhook?.({ "X-Plaud-Signature": `sha256=${signature}` }, body)).toBe(true);
+  });
+
+  it("verifyWebhook rejects missing secret, header, or invalid signature", () => {
+    const adapter = new ApiPlaudAdapter(config);
+    const body = '{"event":"recording.ready"}';
+    const validSig = signWebhookBody(body);
+
+    expect(adapter.verifyWebhook?.({}, body)).toBe(false);
+
+    const noSecret = new ApiPlaudAdapter({ ...config, webhookSecret: undefined });
+    expect(noSecret.verifyWebhook?.({ "x-plaud-signature": validSig }, body)).toBe(false);
+
+    expect(adapter.verifyWebhook?.({ "x-plaud-signature": "deadbeef" }, body)).toBe(false);
+    expect(adapter.verifyWebhook?.({ "x-plaud-signature": signWebhookBody('{"tampered":true}') }, body)).toBe(
+      false
+    );
   });
 
   it("surfaces HTTP errors from partner API", async () => {
