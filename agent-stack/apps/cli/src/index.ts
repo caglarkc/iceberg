@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 import { parseBrief } from "@iceberg/parser";
 import { createLlmService } from "@iceberg/llm";
@@ -12,7 +13,7 @@ import {
 } from "@iceberg/scaffolder";
 import { generateHandoverPackage, writeHandoverPackage } from "@iceberg/handover-gen";
 
-const repoRoot = path.resolve(new URL("../../..", import.meta.url).pathname);
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../..");
 
 const program = new Command()
   .name("iceberg-agent")
