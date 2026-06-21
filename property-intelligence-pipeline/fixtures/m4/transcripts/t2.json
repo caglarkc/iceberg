@@ -1,0 +1,12 @@
+{
+  "provider_recording_id": "plaud-t2-mitcham",
+  "title": "Mitcham valuation notes",
+  "recorded_at": "2026-06-20T11:20:00.000Z",
+  "duration_sec": 1520,
+  "owner_hint": "sarah.mitchell@iceberg-estates.co.uk",
+  "transcript_text": "Sarah Mitchell: Hi Fiona, thanks for showing me around. So this is on High Street in Mitcham — postcode CR4 1AA.\n\nMs Fiona Thompson: Yes, we've been here five years on High Street.\n\nSarah Mitchell: It's a two-bed terrace, needs some cosmetic refresh in the kitchen.\n\nMs Fiona Thompson: We're downsizing after the kids left. Not in a huge rush — maybe six months.\n\nMs Fiona Thompson: We were thinking somewhere around £425,000 but open to your advice.\n\nSarah Mitchell: I'll pull local comparables for CR4 and we can discuss marketing strategy.",
+  "summary_text": "High Street Mitcham CR4 1AA valuation. Downsizing, flexible timeline ~6 months, price hint £425k.",
+  "template_type": "valuation",
+  "metadata": { "scenario": "T2" },
+  "fetched_via": "mock"
+}

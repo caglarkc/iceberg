@@ -1,0 +1,49 @@
+{
+  "properties": [
+    {
+      "id": "prop-oak-lane-14",
+      "company_id": "company-iceberg-001",
+      "address": "14 Oak Lane",
+      "postcode": "SW19 3PQ",
+      "city": "Wimbledon",
+      "bedrooms": 4,
+      "proposal_draft": {}
+    },
+    {
+      "id": "prop-oak-lane-16",
+      "company_id": "company-iceberg-001",
+      "address": "16 Oak Lane",
+      "postcode": "SW19 3PQ",
+      "city": "Wimbledon",
+      "bedrooms": 3,
+      "proposal_draft": {}
+    },
+    {
+      "id": "prop-maple-close-22",
+      "company_id": "company-iceberg-001",
+      "address": "22 Maple Close",
+      "postcode": "SW19 4AB",
+      "city": "Wimbledon",
+      "bedrooms": 3,
+      "proposal_draft": {}
+    },
+    {
+      "id": "prop-high-street-8",
+      "company_id": "company-iceberg-001",
+      "address": "8 High Street",
+      "postcode": "CR4 1AA",
+      "city": "Mitcham",
+      "bedrooms": 2,
+      "proposal_draft": {}
+    },
+    {
+      "id": "prop-park-road-45",
+      "company_id": "company-wimbledon-002",
+      "address": "45 Park Road",
+      "postcode": "SW15 2BG",
+      "city": "London",
+      "bedrooms": 5,
+      "proposal_draft": {}
+    }
+  ]
+}

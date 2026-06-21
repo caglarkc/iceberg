@@ -1,0 +1,34 @@
+{
+  "contacts": [
+    {
+      "id": "contact-mrs-hartley",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-oak-lane-14",
+      "full_name": "Mrs Patricia Hartley"
+    },
+    {
+      "id": "contact-mr-patel",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-maple-close-22",
+      "full_name": "Mr Raj Patel"
+    },
+    {
+      "id": "contact-ms-thompson",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-high-street-8",
+      "full_name": "Ms Fiona Thompson"
+    },
+    {
+      "id": "contact-dr-williams",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-oak-lane-16",
+      "full_name": "Dr James Williams"
+    },
+    {
+      "id": "contact-mr-green",
+      "company_id": "company-wimbledon-002",
+      "property_id": "prop-park-road-45",
+      "full_name": "Mr David Green"
+    }
+  ]
+}

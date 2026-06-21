@@ -1,0 +1,12 @@
+{
+  "provider_recording_id": "plaud-t1-oak-lane",
+  "title": "Valuation — 14 Oak Lane SW19",
+  "recorded_at": "2026-06-21T10:25:00.000Z",
+  "duration_sec": 1842,
+  "owner_hint": "sarah.mitchell@iceberg-estates.co.uk",
+  "transcript_text": "Agent Sarah Mitchell: Good morning Mrs Hartley, thanks for having me at 14 Oak Lane, Wimbledon, SW19 3PQ today.\n\nMrs Patricia Hartley: Morning Sarah. We've lived here about twelve years.\n\nSarah Mitchell: The property is in good overall condition. The roof was replaced two years ago and the double glazing is recent.\n\nMrs Patricia Hartley: We're relocating to Manchester for work, so we need to sell. Hoping for around £650,000 if the market allows.\n\nSarah Mitchell: That's helpful. When are you hoping to go to market?\n\nMrs Patricia Hartley: Ideally before September, once the children's school term is sorted.\n\nSarah Mitchell: Any works you're planning before sale?\n\nMrs Patricia Hartley: The ensuite bathroom could do with updating — probably £8,000. Garden decking needs replacing too.\n\nMrs Patricia Hartley: I'm a bit worried about stamp duty changes affecting buyers.\n\nSarah Mitchell: I'll send comparable sales for SW19 and follow up on the mortgage options discussion next week.",
+  "summary_text": "Valuation at 14 Oak Lane SW19. Sellers relocating to Manchester, hoping for ~£650k, want to list before September. Roof and glazing recent; ensuite and garden decking need work. Stamp duty concern noted.",
+  "template_type": "valuation",
+  "metadata": { "scenario": "T1", "device_id": "plaud-sarah-01" },
+  "fetched_via": "mock"
+}

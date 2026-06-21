@@ -1,0 +1,12 @@
+{
+  "provider_recording_id": "plaud-t5-extraction",
+  "title": "14 Oak Lane — full valuation",
+  "recorded_at": "2026-06-21T10:28:00.000Z",
+  "duration_sec": 2100,
+  "owner_hint": "sarah.mitchell@iceberg-estates.co.uk",
+  "transcript_text": "Sarah Mitchell: Mrs Hartley, walking through 14 Oak Lane SW19 3PQ again for the detailed notes.\n\nMrs Patricia Hartley: Please go ahead.\n\nSarah Mitchell: Property condition is very good — roof replaced two years ago, boiler serviced annually.\n\nMrs Patricia Hartley: Main motivation is relocating to Manchester for my husband's new role.\n\nMrs Patricia Hartley: We're hoping for around £650,000 — firm on that unless the market shifts dramatically.\n\nSarah Mitchell: Timeline to list?\n\nMrs Patricia Hartley: Before September, ideally August.\n\nMrs Patricia Hartley: Ensuite bathroom needs updating, estimate £8,000. Garden decking should be replaced before photos — optional but recommended.\n\nMrs Patricia Hartley: Concerned about stamp duty changes and whether buyers will wait for rate stability.\n\nSarah Mitchell: Follow-up: send SW19 comparables by Friday, book second viewing for Mrs Hartley's sister, and arrange EPC check.",
+  "summary_text": "Detailed 14 Oak Lane valuation: excellent condition, Manchester relocation, firm £650k, list before September, ensuite £8k + decking, stamp duty concerns, three follow-ups.",
+  "template_type": "valuation",
+  "metadata": { "scenario": "T5" },
+  "fetched_via": "mock"
+}

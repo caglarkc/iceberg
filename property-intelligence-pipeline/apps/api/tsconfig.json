@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "noEmit": false
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../../packages/plaud" },
+    { "path": "../../packages/matching" },
+    { "path": "../../packages/extraction" },
+    { "path": "../../packages/llm" },
+    { "path": "../../packages/crm" }
+  ]
+}

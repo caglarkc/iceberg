@@ -1,0 +1,12 @@
+{
+  "provider_recording_id": "plaud-t3-oak-neighbor",
+  "title": "Oak Lane area walkthrough",
+  "recorded_at": "2026-06-21T10:35:00.000Z",
+  "duration_sec": 1680,
+  "owner_hint": "sarah.mitchell@iceberg-estates.co.uk",
+  "transcript_text": "Sarah Mitchell: We're on Oak Lane in Wimbledon today — postcode SW19 3PQ. Lovely tree-lined street.\n\nDr James Williams: Yes, this is number 16 Oak Lane. The garden backs onto the common.\n\nSarah Mitchell: Four bedrooms originally but you've converted the loft?\n\nDr James Williams: Correct, that's our home. Next door at number 14 is also on the market soon — different vendor.\n\nSarah Mitchell: For this property, condition is excellent. Recent kitchen renovation.\n\nDr James Williams: We're not rushing — maybe twelve months. Price expectation around £720,000.\n\nSarah Mitchell: I'll note the loft conversion and compare with recent SW19 3PQ sales.",
+  "summary_text": "16 Oak Lane SW19 3PQ valuation. Loft conversion, excellent condition, 12-month timeline, ~£720k expectation. Mentions neighbor at 14.",
+  "template_type": "valuation",
+  "metadata": { "scenario": "T3" },
+  "fetched_via": "mock"
+}

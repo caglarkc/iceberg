@@ -1,0 +1,36 @@
+{
+  "scenarios": {
+    "T1": {
+      "transcript_id": "plaud-t1-oak-lane",
+      "expected_top1_property_id": "prop-oak-lane-14",
+      "min_confidence": 0.9,
+      "queue": "suggested"
+    },
+    "T2": {
+      "transcript_id": "plaud-t2-mitcham",
+      "expected_top1_property_id": "prop-high-street-8",
+      "min_confidence": 0.7,
+      "max_confidence": 0.85,
+      "queue": "review"
+    },
+    "T3": {
+      "transcript_id": "plaud-t3-oak-neighbor",
+      "expected_top1_property_id": "prop-oak-lane-16",
+      "expected_correct_in_top3": "prop-oak-lane-16",
+      "min_confidence": 0.55,
+      "max_confidence": 0.85,
+      "queue": "review"
+    },
+    "T4": {
+      "transcript_id": "plaud-t4-unmatched",
+      "max_confidence": 0.6,
+      "queue": "unmatched"
+    },
+    "T5": {
+      "transcript_id": "plaud-t5-extraction",
+      "expected_top1_property_id": "prop-oak-lane-14",
+      "min_confidence": 0.85,
+      "queue": "suggested"
+    }
+  }
+}

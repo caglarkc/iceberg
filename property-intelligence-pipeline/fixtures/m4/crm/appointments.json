@@ -1,0 +1,49 @@
+{
+  "appointments": [
+    {
+      "id": "appt-oak-lane-14",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-oak-lane-14",
+      "contact_id": "contact-mrs-hartley",
+      "assigned_user_id": "user-sarah-001",
+      "scheduled_at": "2026-06-21T10:00:00.000Z",
+      "type": "valuation"
+    },
+    {
+      "id": "appt-maple-close-22",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-maple-close-22",
+      "contact_id": "contact-mr-patel",
+      "assigned_user_id": "user-sarah-001",
+      "scheduled_at": "2026-06-21T14:30:00.000Z",
+      "type": "valuation"
+    },
+    {
+      "id": "appt-high-street-8",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-high-street-8",
+      "contact_id": "contact-ms-thompson",
+      "assigned_user_id": "user-sarah-001",
+      "scheduled_at": "2026-06-20T11:00:00.000Z",
+      "type": "valuation"
+    },
+    {
+      "id": "appt-oak-lane-16",
+      "company_id": "company-iceberg-001",
+      "property_id": "prop-oak-lane-16",
+      "contact_id": "contact-dr-williams",
+      "assigned_user_id": "user-james-002",
+      "scheduled_at": "2026-06-21T10:15:00.000Z",
+      "type": "valuation"
+    },
+    {
+      "id": "appt-park-road-45",
+      "company_id": "company-wimbledon-002",
+      "property_id": "prop-park-road-45",
+      "contact_id": "contact-mr-green",
+      "assigned_user_id": "user-emma-003",
+      "scheduled_at": "2026-06-21T09:00:00.000Z",
+      "type": "valuation"
+    }
+  ]
+}

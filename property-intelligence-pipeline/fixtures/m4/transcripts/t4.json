@@ -1,0 +1,12 @@
+{
+  "provider_recording_id": "plaud-t4-unmatched",
+  "title": "Evening property chat",
+  "recorded_at": "2026-06-21T16:30:00.000Z",
+  "duration_sec": 980,
+  "owner_hint": "james.wright@iceberg-estates.co.uk",
+  "transcript_text": "James Wright: Thanks for the tour this afternoon on Maple Close.\n\nMr Raj Patel: Yes, 22 Maple Close Wimbledon. SW19 4AB.\n\nJames Wright: Three bedrooms, good potential. When were you thinking of selling?\n\nMr Raj Patel: Possibly spring next year. We want to find somewhere larger first.\n\nMr Raj Patel: Budget wise we're hoping for mid-fives — perhaps £550,000.\n\nJames Wright: I'll send over some SW19 4AB comparables and we can revisit in a few months.",
+  "summary_text": "22 Maple Close SW19 4AB. Spring sale timeline, ~£550k hope. Recorded by James Wright.",
+  "template_type": "valuation",
+  "metadata": { "scenario": "T4" },
+  "fetched_via": "mock"
+}

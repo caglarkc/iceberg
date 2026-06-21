@@ -1,0 +1,33 @@
+{
+  "company_id": "company-iceberg-001",
+  "users": [
+    {
+      "id": "user-sarah-001",
+      "company_id": "company-iceberg-001",
+      "email": "sarah.mitchell@iceberg-estates.co.uk",
+      "full_name": "Sarah Mitchell"
+    },
+    {
+      "id": "user-james-002",
+      "company_id": "company-iceberg-001",
+      "email": "james.wright@iceberg-estates.co.uk",
+      "full_name": "James Wright"
+    },
+    {
+      "id": "user-emma-003",
+      "company_id": "company-wimbledon-002",
+      "email": "emma.clark@wimbledonprops.co.uk",
+      "full_name": "Emma Clark"
+    }
+  ],
+  "companies": [
+    {
+      "id": "company-iceberg-001",
+      "name": "Iceberg Estate Agents"
+    },
+    {
+      "id": "company-wimbledon-002",
+      "name": "Wimbledon Properties Ltd"
+    }
+  ]
+}

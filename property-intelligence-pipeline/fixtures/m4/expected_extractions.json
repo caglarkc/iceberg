@@ -1,0 +1,81 @@
+{
+  "recording_id": "plaud-t5-extraction",
+  "property_id": "prop-oak-lane-14",
+  "fields": {
+    "property_condition": {
+      "value": "Very good — roof replaced two years ago, boiler serviced annually",
+      "confidence": 0.92,
+      "evidence_quote": "Property condition is very good — roof replaced two years ago, boiler serviced annually",
+      "status": "suggested"
+    },
+    "seller_motivation": {
+      "value": "Relocating to Manchester for husband's new role",
+      "confidence": 0.95,
+      "evidence_quote": "Main motivation is relocating to Manchester for my husband's new role",
+      "status": "suggested"
+    },
+    "asking_expectation": {
+      "value": {
+        "amount_gbp": 650000,
+        "qualifier": "firm",
+        "raw_phrase": "hoping for around £650,000 — firm on that"
+      },
+      "confidence": 0.9,
+      "evidence_quote": "We're hoping for around £650,000 — firm on that unless the market shifts dramatically",
+      "status": "suggested"
+    },
+    "timeline": {
+      "value": "Before September, ideally August",
+      "confidence": 0.88,
+      "evidence_quote": "Before September, ideally August",
+      "status": "suggested"
+    },
+    "renovations": {
+      "value": [
+        {
+          "area": "ensuite bathroom",
+          "description": "Needs updating",
+          "estimated_cost_gbp": 8000,
+          "urgency": "before_sale"
+        },
+        {
+          "area": "garden decking",
+          "description": "Should be replaced before photos",
+          "estimated_cost_gbp": null,
+          "urgency": "optional"
+        }
+      ],
+      "confidence": 0.85,
+      "evidence_quote": "Ensuite bathroom needs updating, estimate £8,000. Garden decking should be replaced before photos",
+      "status": "suggested"
+    },
+    "concerns": {
+      "value": ["Stamp duty changes", "Buyers waiting for rate stability"],
+      "confidence": 0.82,
+      "evidence_quote": "Concerned about stamp duty changes and whether buyers will wait for rate stability",
+      "status": "suggested"
+    },
+    "follow_up_tasks": {
+      "value": [
+        {
+          "title": "Send SW19 comparables by Friday",
+          "due_in_days": 3,
+          "assignee": "agent"
+        },
+        {
+          "title": "Book second viewing for Mrs Hartley's sister",
+          "due_in_days": 7,
+          "assignee": "agent"
+        },
+        {
+          "title": "Arrange EPC check",
+          "due_in_days": 14,
+          "assignee": "internal"
+        }
+      ],
+      "confidence": 0.8,
+      "evidence_quote": "Follow-up: send SW19 comparables by Friday, book second viewing for Mrs Hartley's sister, and arrange EPC check",
+      "status": "suggested"
+    }
+  }
+}
