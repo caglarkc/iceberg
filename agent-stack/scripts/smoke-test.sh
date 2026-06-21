@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Smoke test: writes only under /tmp (CI-safe, ephemeral).
+# Committed reviewer artefacts live in demo/output/ — see docs/DEMO_OUTPUT.md.
 set -euo pipefail
 
 rm -rf /tmp/agent-stack-smoke
