@@ -18,6 +18,7 @@ ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test -- --coverage
 | — | Follow-up task draft | integration |
 | — | HttpZoomClient HTTP contract | contract |
 | — | Zoom service mock contract | contract |
+| — | M2↔M3 bridge mapping vs M2 OpenAPI | contract |
 | — | ContactService | integration |
 | — | Topic generator / encryption | unit |
 

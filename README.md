@@ -23,7 +23,7 @@ iceberg/
 |---------|---------|-----------|----------------|
 | M1 | Iceberg X Intelligence Layer | [`iceberg-x-intelligence-poc/`](iceberg-x-intelligence-poc/) | 3101 |
 | M2 | Zoom Integration Core | [`zoom-integration-core/`](zoom-integration-core/) | 3201 |
-| M3 | Lifesycle Zoom Meeting Flow | [`lifesycle-zoom-crm-poc/`](lifesycle-zoom-crm-poc/) | 3301 |
+| M3 | Lifesycle Zoom Meeting Flow | [`lifesycle-zoom-crm-poc/`](lifesycle-zoom-crm-poc/) | 3003 (CRM), 4010 (Zoom mock) |
 | M4 | Property Intelligence Pipeline | [`property-intelligence-pipeline/`](property-intelligence-pipeline/) | 3002 (API) / 5174 (Web) |
 | M5 | Agent Stack | [`agent-stack/`](agent-stack/) | — |
 

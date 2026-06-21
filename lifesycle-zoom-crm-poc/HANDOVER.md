@@ -17,7 +17,7 @@
 
 1. `cp .env.example .env`
 2. `npm install && npm run seed`
-3. `npm run dev` — CRM :3003, Zoom mock :4010
+3. `npm run dev` — CRM UI :3003, Zoom mock :4010/api/v1
 4. `npm run test -- --coverage` — must pass before demo (CI merge blocker)
 
 ## M2 ↔ M3 Integration (Path Mapping)
@@ -33,13 +33,17 @@ M3 treats Zoom as a **black box**. The in-repo M2 service (`zoom-integration-cor
 
 **Production bridge:** deploy an API gateway or adapter layer that maps M3 client calls to M2 routes and translates webhooks. Do not point M3 directly at M2 without this mapping.
 
-Example mapping:
+Production adapter mapping (validated by `tests/contract/m2-bridge-mapping.test.ts` against M2 OpenAPI):
 
-```
-M3 POST /api/v1/meetings     →  M2 POST /api/zoom/meetings
-M3 GET  /api/v1/capabilities →  M2 GET  /api/zoom/capabilities
-M2 webhook (raw)             →  normalize → M3 POST /api/webhooks/zoom
-```
+| M3 consumer (black box) | M2 (`zoom-integration-core`) | Notes |
+|-------------------------|------------------------------|-------|
+| `GET /api/v1/capabilities` | `GET /api/zoom/capability-map` | Adapter maps items → capabilities JSON |
+| `POST /api/v1/meetings` | `POST /api/zoom/meetings` | Scheduled meeting (`type=2`) |
+| `POST /api/v1/meetings/instant` | `POST /api/zoom/meetings` | Instant meeting (`type=1`) |
+| `GET /api/v1/meetings/{id}` | `GET /api/zoom/meetings/{id}` | |
+| `POST /api/v1/meetings/{id}/embed-signature` | `POST /api/zoom/signature` | Adapter resolves id → meetingNumber |
+| `POST /api/v1/webhooks/replay` | `POST /internal/webhooks/replay` | Demo replay only |
+| `POST /api/webhooks/zoom` ← | `POST /api/zoom/webhooks` | M2 ingests raw Zoom; adapter normalizes |
 
 ## Known Limitations
 
