@@ -40,7 +40,7 @@ Each POC has a path-scoped workflow under [`.github/workflows/`](.github/workflo
 | `iceberg-x-intelligence-poc-ci.yml` | M1 |
 | `zoom-integration-core-ci.yml` | M2 |
 | `lifesycle-zoom-crm-poc-ci.yml` | M3 |
-| `property-intelligence-poc-ci.yml` | M4 |
+| `property-intelligence-pipeline-ci.yml` | M4 |
 | `agent-stack-ci.yml` | M5 |
 
 All workflows use **Node 20**, `npm ci`, lint, typecheck, and tests with coverage gates where configured.
