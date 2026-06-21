@@ -1,0 +1,38 @@
+name: iceberg-x-intelligence-poc-ci
+
+on:
+  pull_request:
+    paths:
+      - "iceberg-x-intelligence-poc/**"
+      - ".github/workflows/iceberg-x-intelligence-poc-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "iceberg-x-intelligence-poc/**"
+      - ".github/workflows/iceberg-x-intelligence-poc-ci.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      LLM_PROVIDER: mock
+      LLM_MODEL: mock-poc-model
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: iceberg-x-intelligence-poc/package-lock.json
+      - name: Install
+        working-directory: iceberg-x-intelligence-poc
+        run: npm ci
+      - name: Lint
+        working-directory: iceberg-x-intelligence-poc
+        run: npm run lint
+      - name: Typecheck
+        working-directory: iceberg-x-intelligence-poc
+        run: npm run typecheck
+      - name: Test
+        working-directory: iceberg-x-intelligence-poc
+        run: npm run test -- --coverage

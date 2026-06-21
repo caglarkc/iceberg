@@ -67,7 +67,14 @@ export class MockLlmProvider implements RawProvider {
   readonly model = "mock-poc-model";
 
   async completeRaw(system: string, user: string): Promise<RawCompletion> {
+    const systemLower = system.toLowerCase();
     const lower = `${system} ${user}`.toLowerCase();
+    if (systemLower.includes("handover_generate")) {
+      return { text: JSON.stringify(mockHandover(user)), usage: usageFor(user) };
+    }
+    if (systemLower.includes("review_generate")) {
+      return { text: JSON.stringify(mockReview()), usage: usageFor(user) };
+    }
     if (lower.includes("handover")) {
       return { text: JSON.stringify(mockHandover(user)), usage: usageFor(user) };
     }

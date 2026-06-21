@@ -91,7 +91,7 @@ export function createApp(options: AppOptions) {
   });
 
   app.get("/api/missions/:id", (req, res) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     res.json({
       ...mission,
@@ -101,7 +101,7 @@ export function createApp(options: AppOptions) {
   });
 
   app.patch("/api/missions/:id", requireRole(["admin"]), (req, res) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     const parsed = CreateMissionSchema.partial().safeParse(req.body);
     if (!parsed.success) return validationError(res, parsed.error);
@@ -110,22 +110,24 @@ export function createApp(options: AppOptions) {
   });
 
   app.delete("/api/missions/:id", requireRole(["admin"]), (req, res) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     Object.assign(mission, { status: "archived", updatedAt: store.now() });
     res.status(204).send();
   });
 
   app.get("/api/missions/:id/evidence", (req, res) => {
-    if (!findMission(store, req.params.id)) return notFound(res, "Mission not found");
-    res.json(store.evidence.filter((item) => item.missionId === req.params.id));
+    const missionId = paramId(req);
+    if (!findMission(store, missionId)) return notFound(res, "Mission not found");
+    res.json(store.evidence.filter((item) => item.missionId === missionId));
   });
 
   app.post("/api/missions/:id/evidence", requireRole(["admin", "intern"]), (req, res) => {
-    if (!findMission(store, req.params.id)) return notFound(res, "Mission not found");
+    const missionId = paramId(req);
+    if (!findMission(store, missionId)) return notFound(res, "Mission not found");
     const parsed = CreateEvidenceEntrySchema.safeParse(req.body);
     if (!parsed.success) return validationError(res, parsed.error);
-    res.status(201).json(store.addEvidence(req.params.id, parsed.data, (req as AuthedRequest).user.id));
+    res.status(201).json(store.addEvidence(missionId, parsed.data, (req as AuthedRequest).user.id));
   });
 
   app.patch("/api/evidence/:id", requireRole(["admin", "intern"]), (req, res) => {
@@ -147,10 +149,11 @@ export function createApp(options: AppOptions) {
   });
 
   app.post("/api/missions/:id/submissions", requireRole(["intern"]), (req, res) => {
-    if (!findMission(store, req.params.id)) return notFound(res, "Mission not found");
+    const missionId = paramId(req);
+    if (!findMission(store, missionId)) return notFound(res, "Mission not found");
     const parsed = CreateSubmissionSchema.safeParse(req.body);
     if (!parsed.success) return validationError(res, parsed.error);
-    res.status(201).json(store.addSubmission(req.params.id, parsed.data, (req as AuthedRequest).user.id));
+    res.status(201).json(store.addSubmission(missionId, parsed.data, (req as AuthedRequest).user.id));
   });
 
   app.post("/api/submissions/:id/submit", requireRole(["intern"]), (req, res) => {
@@ -243,13 +246,13 @@ export function createApp(options: AppOptions) {
   });
 
   app.get("/api/missions/:id/readiness", (req, res) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     res.json(computeReadiness(store, mission.id));
   });
 
   app.post("/api/missions/:id/readiness/compute", requireRole(["admin", "mentor"]), (req, res) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     res.json(computeReadiness(store, mission.id));
   });
@@ -282,7 +285,7 @@ export function createApp(options: AppOptions) {
   });
 
   app.post("/api/missions/:id/handover/generate", requireRole(["admin", "mentor"]), async (req, res, next) => {
-    const mission = findMission(store, req.params.id);
+    const mission = findMission(store, paramId(req));
     if (!mission) return notFound(res, "Mission not found");
     const evidence = store.evidence.filter((item) => item.missionId === mission.id);
     const submission = latestSubmission(store, mission.id);
@@ -330,7 +333,8 @@ export function createApp(options: AppOptions) {
     res.json({ ...run, artifacts: store.artifacts.filter((item) => item.aiRunId === run.id) });
   });
 
-  app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((error: Error, _req: Request, res: Response, next: NextFunction) => {
+    void next;
     res.status(500).json({ error: error.message });
   });
 
@@ -364,6 +368,10 @@ function notFound(res: Response, error: string) {
 
 function forbidden(res: Response) {
   return res.status(403).json({ error: "Forbidden" });
+}
+
+function paramId(req: Request): string {
+  return String(req.params.id);
 }
 
 function findMission(store: AppStore, id: string) {

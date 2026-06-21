@@ -1,0 +1,6 @@
+{
+  "scenario": "Plaud Transcript CRM Entegrasyonu",
+  "idea": "Plaud kayıt cihazından gelen transcript'leri Lifesycle CRM'deki property valuation görüşmeleriyle eşleştir",
+  "roles": ["admin", "intern", "mentor", "leadership"],
+  "llmProviderForCi": "mock"
+}
