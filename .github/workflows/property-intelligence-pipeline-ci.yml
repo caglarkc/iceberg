@@ -1,0 +1,40 @@
+name: property-intelligence-pipeline-ci
+
+on:
+  pull_request:
+    paths:
+      - "property-intelligence-pipeline/**"
+      - ".github/workflows/property-intelligence-pipeline-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "property-intelligence-pipeline/**"
+      - ".github/workflows/property-intelligence-pipeline-ci.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      PLAUD_MODE: mock
+      LLM_PROVIDER: mock
+      COMPANY_ID: company-iceberg-001
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: property-intelligence-pipeline/package-lock.json
+      - name: Install
+        working-directory: property-intelligence-pipeline
+        run: npm ci
+      - name: Lint
+        working-directory: property-intelligence-pipeline
+        run: npm run lint
+      - name: Typecheck
+        working-directory: property-intelligence-pipeline
+        run: npm run typecheck
+      - name: Test
+        working-directory: property-intelligence-pipeline
+        run: npm run test -- --coverage

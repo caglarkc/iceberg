@@ -2,16 +2,17 @@
 
 ## Automated (CI)
 
-| Suite | Command | Coverage |
-|-------|---------|----------|
-| Lint | `npm run lint` | — |
-| Types | `npm run typecheck` | — |
-| Unit | `tests/matching.unit.test.ts` | proximity, address, weights |
-| Golden | `tests/matching.golden.test.ts` | T1–T4 fixtures |
-| Extraction | `tests/extraction.unit.test.ts` | Zod schema T5 |
-| API E2E | `tests/api.pipeline.test.ts` | ingest→apply T1 |
+| Suite | File | Coverage |
+|-------|------|----------|
+| Lint / types | `npm run lint`, `npm run typecheck` | — |
+| Matching unit | `tests/matching.unit.test.ts` | proximity, address, weights |
+| Parse unit | `tests/parse.unit.test.ts` | postcode, street, names |
+| Golden match | `tests/matching.golden.test.ts` | T1–T4 |
+| Extraction schema | `tests/extraction.unit.test.ts` | T5 Zod |
+| ApiPlaud adapter | `tests/plaud.api.adapter.test.ts` | mock fetch, errors |
+| API E2E | `tests/api.pipeline.test.ts` | T1 full, T3 confirm, T5 extract, consent |
 
-Env: `PLAUD_MODE=mock LLM_PROVIDER=mock`
+GitHub: `.github/workflows/property-intelligence-pipeline-ci.yml`
 
 ## Manual scenarios
 

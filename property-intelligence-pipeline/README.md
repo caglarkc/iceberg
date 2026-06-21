@@ -15,14 +15,13 @@ PLAUD_MODE=mock LLM_PROVIDER=mock npm run dev
 - API: http://localhost:3002
 - Web: http://localhost:5174
 
+> **Repo hygiene:** `node_modules/`, `coverage/`, `dist/` are gitignored. Run `npm install` after clone.
+
 ## Demo flow (T1 happy path)
 
 ```bash
-# Terminal 1
-PLAUD_MODE=mock LLM_PROVIDER=mock npm run dev --workspace @pip/api
-
-# Terminal 2
-npm run dev --workspace @pip/web
+PLAUD_MODE=mock LLM_PROVIDER=mock npm run dev --workspace @pip/api   # terminal 1
+npm run dev --workspace @pip/web                                      # terminal 2
 
 # Or curl-only:
 curl -X POST http://localhost:3002/api/plaud/ingest/mock
@@ -36,7 +35,7 @@ Copy `.env.example` → `.env`:
 
 | Variable | Description |
 |----------|-------------|
-| `PLAUD_MODE` | `mock` (CI) or `live` (ApiPlaudAdapter) |
+| `PLAUD_MODE` | `mock` (CI) or `live` (`ApiPlaudAdapter`) |
 | `PLAUD_API_BASE_URL` | Plaud partner API base URL |
 | `PLAUD_CLIENT_API_KEY` | Partner API key |
 | `LLM_PROVIDER` | `mock` \| `gemini` \| `openai` \| `anthropic` |
@@ -51,10 +50,13 @@ packages/matching   Weighted confidence entity matcher
 packages/extraction Zod proposal field schema
 packages/llm        Structured LLM + healing retry
 packages/crm        Mock Lifesycle adapter (timeline + proposal draft)
-apps/api            Express pipeline API
+apps/api            Express pipeline API (in-memory PipStore)
 apps/web            React review inbox UI
 fixtures/m4/        T1–T5 golden transcripts + CRM seed
+drizzle/            Postgres DDL reference (Faz 2)
 ```
+
+**Persistence:** POC uses in-memory store. Optional Postgres: `docker compose up -d postgres` (port 5433).
 
 ## Governance
 
@@ -62,15 +64,21 @@ fixtures/m4/        T1–T5 golden transcripts + CRM seed
 - High confidence (≥0.85) only speeds up UX; confirm still required
 - Consent checkbox in UI before extraction (POC placeholder)
 
-## Tests
+## Tests & CI
 
 ```bash
-npm run lint && npm run typecheck && npm run test -- --coverage
+PLAUD_MODE=mock LLM_PROVIDER=mock npm run lint && npm run typecheck && npm run test -- --coverage
 ```
+
+GitHub Actions: `.github/workflows/property-intelligence-pipeline-ci.yml` (repo root).
 
 ## Docs
 
-- `RETRIEVAL.md` — Plaud data access paths
-- `ENTITY_MATCHING.md` — confidence formula
-- `TEST_PLAN.md` — manual + automated scenarios
-- `HANDOVER.md` — main team devir
+| File | Description |
+|------|-------------|
+| `RETRIEVAL.md` | Plaud data access paths |
+| `ENTITY_MATCHING.md` | Confidence formula |
+| `PRIVACY_GDPR.md` | Privacy checklist (POC) |
+| `DEMO_DAY_REFLECTION.md` | Demo script + gaps |
+| `TEST_PLAN.md` | Manual + automated scenarios |
+| `HANDOVER.md` | Main team devir |
