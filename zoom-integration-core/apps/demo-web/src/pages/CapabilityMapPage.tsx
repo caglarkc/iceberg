@@ -8,6 +8,13 @@ const statusLabel: Record<string, string> = {
   escalate: "Escalate"
 };
 
+const implementationLabel: Record<string, string> = {
+  real: "Real",
+  mock: "Mock",
+  simulated: "Simulated",
+  none: "—"
+};
+
 export default function CapabilityMapPage() {
   const [items, setItems] = useState<CapabilityItem[]>([]);
   const [filter, setFilter] = useState("");
@@ -31,6 +38,11 @@ export default function CapabilityMapPage() {
       {items.map((item) => (
         <div className="card" key={item.feature_key}>
           <span className={`badge ${badgeClass(item.status)}`}>{statusLabel[item.status] ?? item.status}</span>
+          {item.implementation && item.implementation !== "none" ? (
+            <span className="badge warn" style={{ marginLeft: "0.5rem" }}>
+              {implementationLabel[item.implementation] ?? item.implementation}
+            </span>
+          ) : null}
           <h3>{item.title}</h3>
           <p>{item.description}</p>
           <p style={{ color: "#8aa0c8" }}>{item.notes}</p>

@@ -73,6 +73,21 @@ describe("Zoom API integration", () => {
     expect(res.body.items.every((i: { status: string }) => i.status === "not_possible")).toBe(true);
   });
 
+  it("GET /api/zoom/capability-map includes implementation on every item", async () => {
+    const res = await request(app).get("/api/zoom/capability-map");
+    expect(res.status).toBe(200);
+    expect(res.body.items.length).toBe(27);
+    for (const item of res.body.items) {
+      expect(["real", "mock", "simulated", "none"]).toContain(item.implementation);
+    }
+    const simulated = res.body.items.filter(
+      (i: { implementation: string }) => i.implementation === "simulated"
+    );
+    expect(simulated.some((i: { feature_key: string }) => i.feature_key === "meeting_sdk_embed")).toBe(
+      true
+    );
+  });
+
   it("GET /api/zoom/phone/events returns mock events", async () => {
     const res = await request(app).get("/api/zoom/phone/events");
     expect(res.status).toBe(200);

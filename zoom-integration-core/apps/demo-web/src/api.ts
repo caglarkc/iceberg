@@ -49,6 +49,7 @@ export interface CapabilityItem {
   title: string;
   description: string;
   status: string;
+  implementation?: "real" | "mock" | "simulated" | "none";
   notes: string;
 }
 
