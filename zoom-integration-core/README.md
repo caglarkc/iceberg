@@ -43,8 +43,12 @@ Faz 2 credentials (commented in `.env.example`): `ZOOM_ACCOUNT_ID`, `ZOOM_CLIENT
 | GET | `/api/zoom/events` | Event log |
 | GET | `/api/zoom/capability-map` | 27-item capability matrix |
 | GET | `/api/zoom/phone/capabilities` | Phone license status |
+| GET | `/api/zoom/phone/events` | Phone mock + webhook events |
+| GET | `/api/zoom/meetings/:uuid/recordings` | Recording files |
+| GET | `/api/zoom/meetings/:uuid/transcript` | Transcript text |
+| PATCH / DELETE | `/api/zoom/meetings/:id` | Update / cancel |
 
-OpenAPI: [`docs/openapi.yaml`](docs/openapi.yaml)
+OpenAPI (M3 contract, v0.1.1): [`docs/openapi.yaml`](docs/openapi.yaml)
 
 ## Architecture
 
@@ -68,8 +72,10 @@ Modules: `auth/`, `meetings/`, `sdk/`, `webhooks/`, `phone/`, `recordings/`, `cr
 ## Tests
 
 ```bash
-npm run lint && npm run typecheck && npm run test -- --coverage
+ZOOM_MODE=mock npm run lint && npm run typecheck && npm run test -- --coverage
 ```
+
+GitHub CI: monorepo root [`.github/workflows/zoom-integration-core-ci.yml`](../.github/workflows/zoom-integration-core-ci.yml)
 
 ## Docs
 

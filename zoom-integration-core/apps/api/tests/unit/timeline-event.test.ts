@@ -2,6 +2,21 @@ import { describe, expect, it } from "vitest";
 import { webhookToTimelineEvent } from "../../src/crm-adapter/timeline-event.js";
 
 describe("crm-adapter timeline-event", () => {
+  it("maps recording.completed to zoom.recording.ready", () => {
+    const event = webhookToTimelineEvent({
+      id: "1",
+      zoom_event_id: "z-1",
+      event_type: "recording.completed",
+      event_ts: "2026-06-21T10:00:00.000Z",
+      payload: { object: { uuid: "u-1", topic: "Valuation Demo Call", recording_files: [{ id: "rec-1" }] } },
+      processed: true,
+      created_at: "2026-06-21T10:00:00.000Z"
+    });
+    expect(event?.event_type).toBe("zoom.recording.ready");
+    expect(event?.title).toContain("Valuation Demo Call");
+    expect(event?.metadata.recording_files).toBeTruthy();
+  });
+
   it("maps phone call to zoom.phone.call.completed", () => {
     const event = webhookToTimelineEvent({
       id: "2",

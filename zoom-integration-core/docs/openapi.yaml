@@ -1,42 +1,102 @@
 openapi: 3.1.0
 info:
   title: Zoom Integration Core API
-  version: 0.1.0
-  description: Iceberg M2 — mock-first Zoom integration service (M3 consumer contract)
+  version: 0.1.1
+  description: |
+    Iceberg M2 — mock-first Zoom integration service.
+    M3 consumes this contract as an external black-box HTTP API.
 servers:
   - url: http://localhost:4010
+    description: Local development (ZOOM_MODE=mock)
+
+tags:
+  - name: public
+    description: Demo and production-facing Zoom API
+  - name: internal
+    description: Admin, jobs, and CRM adapter (not for Zoom callbacks)
+
 paths:
   /api/zoom/health:
     get:
-      summary: Service health
+      tags: [public]
+      summary: Service health and OAuth status
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  oauth: { type: string, enum: [ok, expired] }
+                  sdk: { type: string }
+                  db: { type: string }
+                  mode: { type: string, enum: [mock, real] }
+
   /api/zoom/meetings:
     get:
+      tags: [public]
       summary: List meetings
+      responses:
+        "200":
+          description: Meeting list (start_url masked for non-host)
     post:
+      tags: [public]
       summary: Create meeting
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required: [topic]
-              properties:
-                topic: { type: string }
+              $ref: "#/components/schemas/CreateMeetingRequest"
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Validation error
+
   /api/zoom/meetings/{id}:
     get:
-      summary: Get meeting
+      tags: [public]
+      summary: Get meeting by zoom_meeting_id or uuid
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: string }
+        - $ref: "#/components/parameters/MeetingId"
+      responses:
+        "200":
+          description: Meeting detail
+        "404":
+          description: Not found
+    patch:
+      tags: [public]
+      summary: Update meeting metadata
+      parameters:
+        - $ref: "#/components/parameters/MeetingId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMeetingRequest"
+      responses:
+        "200":
+          description: Updated
+        "404":
+          description: Not found
+    delete:
+      tags: [public]
+      summary: Cancel meeting
+      parameters:
+        - $ref: "#/components/parameters/MeetingId"
+      responses:
+        "204":
+          description: Cancelled
+        "404":
+          description: Not found
+
   /api/zoom/signature:
     post:
-      summary: Meeting SDK JWT signature
+      tags: [public]
+      summary: Meeting SDK JWT signature (HMAC-SHA256)
       requestBody:
         required: true
         content:
@@ -45,20 +105,285 @@ paths:
               type: object
               required: [meetingNumber, role]
               properties:
-                meetingNumber: { type: string }
-                role: { type: integer, enum: [0, 1] }
+                meetingNumber: { type: string, example: "12345678901" }
+                role: { type: integer, enum: [0, 1], description: "0=participant, 1=host" }
+      responses:
+        "200":
+          description: Signature payload for @zoom/meetingsdk
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature: { type: string }
+                  sdkKey: { type: string }
+
+  /api/zoom/meetings/{uuid}/recordings:
+    get:
+      tags: [public]
+      summary: Cloud recording files for a meeting
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Recording file list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meeting_uuid: { type: string }
+                  recordings:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/RecordingFile"
+        "404":
+          description: Meeting not found
+
+  /api/zoom/meetings/{uuid}/transcript:
+    get:
+      tags: [public]
+      summary: Transcript text for a meeting
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Transcript available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meeting_uuid: { type: string }
+                  transcript: { type: string }
+        "404":
+          description: Meeting or transcript not found
+
   /api/zoom/webhooks:
     post:
-      summary: Zoom webhook receiver
+      tags: [public]
+      summary: Zoom webhook receiver (signature required)
+      description: Handles endpoint.url_validation, meeting.*, recording.completed, phone.*
+      responses:
+        "200":
+          description: Processed or challenge response
+        "401":
+          description: Invalid webhook signature
+
   /api/zoom/events:
     get:
+      tags: [public]
       summary: Webhook event log
+      parameters:
+        - name: event_type
+          in: query
+          schema: { type: string }
+      responses:
+        "200":
+          description: Event list (newest first)
+
+  /api/zoom/events/{id}:
+    get:
+      tags: [public]
+      summary: Webhook event detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Event record
+        "404":
+          description: Not found
+
   /api/zoom/capability-map:
     get:
-      summary: Capability matrix JSON
+      tags: [public]
+      summary: Capability matrix (27 items)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [possible_now, needs_license, not_possible, escalate]
+      responses:
+        "200":
+          description: Filtered capability items
+
   /api/zoom/phone/capabilities:
     get:
-      summary: Phone license status
+      tags: [public]
+      summary: Phone license and Smart Embed status
+      responses:
+        "200":
+          description: Capability probe result
+
+  /api/zoom/phone/events:
+    get:
+      tags: [public]
+      summary: Mock phone events and webhook-ingested call log
+      responses:
+        "200":
+          description: Combined phone event lists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mock_events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PhoneEvent"
+                  webhook_events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PhoneEvent"
+
+  /internal/oauth/refresh:
+    post:
+      tags: [internal]
+      summary: Force S2S OAuth token refresh
+      responses:
+        "200":
+          description: Token refreshed
+
+  /internal/jobs/transcript-fetch:
+    post:
+      tags: [internal]
+      summary: Async transcript fetch job trigger
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [meeting_uuid]
+              properties:
+                meeting_uuid: { type: string }
+      responses:
+        "200":
+          description: Transcript fetch result
+
   /internal/crm-adapter/timeline-event:
     post:
-      summary: Map webhook event to CRM TimelineEvent
+      tags: [internal]
+      summary: Map stored webhook event to CRM TimelineEvent JSON
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_id]
+              properties:
+                event_id: { type: string, format: uuid }
+      responses:
+        "200":
+          description: TimelineEvent payload
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TimelineEvent"
+        "404":
+          description: Event not found
+        "422":
+          description: Event type not mappable
+
+  /internal/webhooks/replay:
+    post:
+      tags: [internal]
+      summary: Replay mock webhook fixture (demo without ngrok)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fixture]
+              properties:
+                fixture:
+                  type: string
+                  enum:
+                    - urlValidation
+                    - meetingStarted
+                    - meetingEnded
+                    - recordingCompleted
+                    - phoneCallCompleted
+      responses:
+        "200":
+          description: Fixture ingested
+        "404":
+          description: Unknown fixture name
+
+components:
+  parameters:
+    MeetingId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string }
+
+  schemas:
+    CreateMeetingRequest:
+      type: object
+      required: [topic]
+      properties:
+        topic: { type: string }
+        type: { type: integer, default: 2 }
+        start_time: { type: string, format: date-time }
+        timezone: { type: string }
+        duration: { type: integer }
+        settings: { type: object, additionalProperties: true }
+
+    RecordingFile:
+      type: object
+      properties:
+        id: { type: string }
+        meeting_uuid: { type: string }
+        recording_id: { type: string }
+        file_type: { type: string, example: MP4 }
+        download_url: { type: string, format: uri }
+        transcript_text: { type: string }
+        file_size: { type: integer }
+
+    PhoneEvent:
+      type: object
+      properties:
+        id: { type: string }
+        event_type: { type: string }
+        from_number: { type: string }
+        to_number: { type: string }
+        duration_seconds: { type: integer }
+        occurred_at: { type: string, format: date-time }
+
+    TimelineEvent:
+      type: object
+      required: [event_type, occurred_at, source, external_id, title, summary]
+      properties:
+        event_type:
+          type: string
+          enum:
+            - zoom.meeting.ended
+            - zoom.phone.call.completed
+            - zoom.recording.ready
+        occurred_at: { type: string, format: date-time }
+        source: { type: string, example: zoom-integration-core }
+        external_id: { type: string }
+        title: { type: string }
+        summary: { type: string }
+        metadata: { type: object, additionalProperties: true }
+        related_entity:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [contact, property, appointment, "null"]
+              nullable: true
+            id: { type: string }

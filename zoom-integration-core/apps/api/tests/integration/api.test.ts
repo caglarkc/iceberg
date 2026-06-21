@@ -121,6 +121,30 @@ describe("Zoom API integration", () => {
     expect(res.body.refreshed).toBe(true);
   });
 
+  it("PATCH /api/zoom/meetings/:id updates topic", async () => {
+    const created = await request(app).post("/api/zoom/meetings").send({ topic: "Before" });
+    const res = await request(app)
+      .patch(`/api/zoom/meetings/${created.body.zoom_meeting_id}`)
+      .send({ topic: "After" });
+    expect(res.status).toBe(200);
+    expect(res.body.topic).toBe("After");
+  });
+
+  it("DELETE /api/zoom/meetings/:id cancels meeting", async () => {
+    const created = await request(app).post("/api/zoom/meetings").send({ topic: "To Cancel" });
+    const res = await request(app).delete(`/api/zoom/meetings/${created.body.zoom_meeting_id}`);
+    expect(res.status).toBe(204);
+  });
+
+  it("POST /internal/crm-adapter/timeline-event maps recording.completed", async () => {
+    await request(app).post("/internal/webhooks/replay").send({ fixture: "recordingCompleted" });
+    const events = await request(app).get("/api/zoom/events?event_type=recording.completed");
+    const eventId = events.body[0].id;
+    const timeline = await request(app).post("/internal/crm-adapter/timeline-event").send({ event_id: eventId });
+    expect(timeline.status).toBe(200);
+    expect(timeline.body.event_type).toBe("zoom.recording.ready");
+  });
+
   it("webhook url_validation returns encrypted token", async () => {
     const body = MockZoomAdapter.webhookFixtures.urlValidation;
     const raw = JSON.stringify(body);
