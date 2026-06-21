@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { Meeting, PhoneEvent, RecordingFile } from "../providers/zoom-provider.interface.js";
+import type { Meeting, PhoneEvent, RecordingFile } from "./providers/zoom-provider.interface.js";
 
 export interface WebhookEventRecord {
   id: string;
@@ -102,6 +102,5 @@ export function createInMemoryStore(): ZoomStore {
 
 export function maskStartUrl(meeting: Meeting, isHost = false): Meeting {
   if (isHost) return meeting;
-  const { start_url: _startUrl, ...rest } = meeting;
-  return { ...rest, start_url: undefined };
+  return { ...meeting, start_url: undefined };
 }

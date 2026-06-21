@@ -77,11 +77,11 @@ export class MockZoomAdapter implements ZoomProvider {
   }
 
   async getOAuthToken(): Promise<OAuthToken> {
-    tokenFetchCount += 1;
     const now = Date.now();
     if (cachedToken && cachedToken.expires_at > now + 60_000) {
       return cachedToken;
     }
+    tokenFetchCount += 1;
     cachedToken = {
       access_token: `mock-access-token-${tokenFetchCount}`,
       expires_at: now + 3_600_000,

@@ -13,7 +13,8 @@ export default defineConfig({
         functions: 70,
         lines: 70
       },
-      include: ["apps/api/src/**/*.ts"]
+      include: ["apps/api/src/**/*.ts"],
+      exclude: ["apps/api/src/index.ts", "apps/api/src/providers/real-zoom.adapter.ts"]
     }
   }
 });

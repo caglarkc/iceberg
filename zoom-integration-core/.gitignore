@@ -1,0 +1,6 @@
+zoom-integration-core/
+node_modules/
+dist/
+.env
+coverage/
+*.log

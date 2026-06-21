@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "zoom-integration-core/**"
+      - ".github/workflows/zoom-integration-core-ci.yml"
+  pull_request:
+    paths:
+      - "zoom-integration-core/**"
+
+defaults:
+  run:
+    working-directory: zoom-integration-core
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      ZOOM_MODE: mock
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: zoom-integration-core/package-lock.json
+      - run: npm install
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test -- --coverage
