@@ -48,11 +48,14 @@ program
     await assertReadableBriefPath(options.brief);
     const input = await readFile(options.brief, "utf8");
     const brief = parseBrief(input);
-    const plan = await renderScaffold(brief, {
+    const scaffoldOptions = {
       repoRoot,
-      templateId: options.template,
       llm: createLlmService({ ...process.env, LLM_PROVIDER: process.env.LLM_PROVIDER ?? "mock" })
-    });
+    };
+    const plan = await renderScaffold(
+      brief,
+      options.template ? { ...scaffoldOptions, templateId: options.template } : scaffoldOptions
+    );
 
     if (options.dryRun || !options.approve) {
       console.log(formatPreview(plan.template.id, plan.tree));

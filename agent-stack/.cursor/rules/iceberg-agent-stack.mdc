@@ -1,0 +1,11 @@
+---
+description: Iceberg Agent Stack governance rules
+alwaysApply: true
+---
+
+- Do not read `.env`, private keys, credentials files, or secret values.
+- Keep scaffold generation dry-run first.
+- Require explicit human approval before writing generated files.
+- Do not push, merge, or deploy production code autonomously.
+- Mark generated scaffolds with AI metadata.
+- Use the M5 plan files as source of truth because the mission brief is known to be wrong.
