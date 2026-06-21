@@ -1,6 +1,7 @@
 node_modules/
 dist/
 coverage/
+*.tsbuildinfo
 worktrees/
 output/
 scaffold_runs.jsonl
